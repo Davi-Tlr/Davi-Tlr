@@ -1,6 +1,5 @@
-<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 <div align="center">
-  <img src="headerbg.png">
+  <img src="headerbg.png"></br>
 </div>
 <p align="center">Hi, my name is Davi Lucas.</p>
 <p align="center">I'm from Rio de Janeiro 🏖️ and a first-year web development student.</p>
