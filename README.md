@@ -67,7 +67,7 @@ Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScri
 <br>
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-## Estatísticas do GitHub
+## Stats
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Davi-Tlr&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=8B949E&border_color=30363D&custom_title=Most%20Used%20Languages" alt="Top Languages" /> 
