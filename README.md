@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+<br>
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=40&center=true&vCenter=true&width=1200&lines=Olá!;Meu+nome+é+Davi+Lucas;Front-end+Developer;3º+Semestre+em+Programação+De+Jogos+Digitais;Criando+Experiências+Únicas;Bem-Vindo+ao+meu+Perfil!&color=F4F4F4&background=0D1117" alt="Typing SVG" />
 </div>
@@ -5,6 +7,7 @@
 ## 🧑‍💻 Sobre Mim
 
 Meu nome é **Davi Lucas**, estudante de tecnologia e jogos, natural do Rio de Janeiro. Atualmente no **3º semestre** da graduação em Programação de Jogos Digitais na Universidade Estácio de Sá (2024-2027). Meu principal objetivo é combinar programação e ideias para criar interfaces inovadoras e jogos envolventes que impactem positivamente os usuários.
+<br>
 <img align="right" width=400px alt="Hello!" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHR0cmEzcGJ0cHJzM3o5cjRzOTFzYTQzZ2NwZDlnemh2ZjU2YTUxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jShXX4P8sQIn7fF3UO/giphy.gif"/>
 
 ### ⏳ O Que Estou Aprendendo Atualmente...
