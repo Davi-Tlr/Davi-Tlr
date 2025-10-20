@@ -5,12 +5,13 @@
 </div>
 
 ## 🧑‍💻 Sobre Mim
+Opa! Meu nome é Davi Lucas 👋
+Estudo Programação de Jogos Digitais na Universidade Estácio de Sá (2024–2027) e sou apaixonado por tudo que envolve programação e criatividade, desde interfaces interativas até jogos digitais.
 
-Meu nome é **Davi Lucas**, estudante de tecnologia e jogos, natural do Rio de Janeiro. Atualmente no **3º semestre** da graduação em Programação de Jogos Digitais na Universidade Estácio de Sá (2024-2027). Meu principal objetivo é combinar programação e ideias para criar interfaces inovadoras e jogos envolventes que impactem positivamente os usuários.
-<br>
-<img align="right" width=400px alt="Hello!" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHR0cmEzcGJ0cHJzM3o5cjRzOTFzYTQzZ2NwZDlnemh2ZjU2YTUxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jShXX4P8sQIn7fF3UO/giphy.gif"/>
+Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScript e outros frameworks para aprimorar meus conhecimentos e criar experiências cada vez mais dinâmicas.
 
 ### ⏳ O Que Estou Aprendendo Atualmente...
+<img align="right" width=400px alt="Hello!" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHR0cmEzcGJ0cHJzM3o5cjRzOTFzYTQzZ2NwZDlnemh2ZjU2YTUxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jShXX4P8sQIn7fF3UO/giphy.gif"/>
 
 - **POO em Java**: Programação Orientada a Objetos para estruturas robustas
 - **Técnicas de Ilustração**: Melhorando habilidades visuais e de observação
