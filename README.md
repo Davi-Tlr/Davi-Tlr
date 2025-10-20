@@ -9,15 +9,21 @@ Estudo Programação de Jogos Digitais na Universidade Estácio de Sá (2024–2
 
 Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScript e outros frameworks para aprimorar meus conhecimentos e criar experiências cada vez mais dinâmicas.
 
-### ⏳ O Que Estou Aprendendo Atualmente...
+### ⏳ Aprendendo Atualmente...
 <img align="right" width=400px alt="Hello!" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHR0cmEzcGJ0cHJzM3o5cjRzOTFzYTQzZ2NwZDlnemh2ZjU2YTUxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jShXX4P8sQIn7fF3UO/giphy.gif"/>
+
+<br>
 
 - **POO em Java**: Programação Orientada a Objetos para estruturas robustas
 - **Técnicas de Ilustração**: Melhorando habilidades visuais e de observação
 - **Pensamento Computacional**: Estratégias para resolução eficiente de problemas
 - **React e TypeScript**: Construindo aplicações web escaláveis
 - **NestJS/Next.js**: Explorando frameworks para backend e full-stack
-<p> ✔ Sinta-se à vontade para perguntar qualquer coisa! Adoro ajudar e aprender junto.</p>
+- **Que a vida não é fácil**: Então é necessário se adaptar conforme necessário
+
+<br>
+
+<p> ✔ Sinta-se à vontade para perguntar qualquer coisa! Adoro ajudar e aprender junto 👌.</p>
 <p> Fora da tech, curto jogar videogames e RPGs 🎮, ouvir música 🎵,  Assistir Animes 💻 e explorar novos hobbies🖌️.</p>
 📫 Me contate em: <a href="mailto:davitlr.ti@gmail.com">davitlr.ti@gmail.com</a> | <a href="https://www.linkedin.com/in/davitlr/">LinkedIn</a>
 <br>
