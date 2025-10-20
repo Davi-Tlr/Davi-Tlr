@@ -1,5 +1,4 @@
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-<br>
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=40&center=true&vCenter=true&width=1200&lines=Olá!;Meu+nome+é+Davi+Lucas;Front-end+Developer;3º+Semestre+em+Programação+De+Jogos+Digitais;Criando+Experiências+Únicas;Bem-Vindo+ao+meu+Perfil!&color=F4F4F4&background=0D1117" alt="Typing SVG" />
 </div>
@@ -37,8 +36,6 @@ Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScri
 <br>
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-<!-- My Projects -->
-
 ## <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="35">&nbsp; **_Meu último Projeto_**
 
 <table>
@@ -67,7 +64,7 @@ Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScri
 ## Estatísticas do GitHub
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Davi-Tlr&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=8B949E&border_color=30363D&custom_title=Most%20Used%20Languages" alt="Top Languages" />  
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Davi-Tlr&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=8B949E&border_color=30363D&custom_title=Most%20Used%20Languages" alt="Top Languages" /> 
   
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=Davi-Tlr&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=58A6FF&currStreakLabel=58A6FF&dates=8B949E" alt="GitHub Streak" />
   
@@ -75,8 +72,6 @@ Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScri
   </div>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-
 
 ## Metas para 2025
   <img align="right" src="https://user-images.githubusercontent.com/74038190/212750996-938b257b-266c-45a7-9af7-655341c0f58b.gif" alt="Coding GIF" width="400" height="300" />
