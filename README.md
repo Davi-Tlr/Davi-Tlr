@@ -71,9 +71,7 @@ Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScri
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Davi-Tlr&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=8B949E&border_color=30363D&custom_title=Most%20Used%20Languages" alt="Top Languages" /> 
-  
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Davi-Tlr&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=58A6FF&currStreakLabel=58A6FF&dates=8B949E" alt="GitHub Streak" />
-  
+    
   <img src="https://github-readme-stats.vercel.app/api?username=Davi-Tlr&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=8B949E&border_color=30363D&custom_title=Davi%27s%20GitHub%20Stats" alt="GitHub Stats" />
   </div>
 
