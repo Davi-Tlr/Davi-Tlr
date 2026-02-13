@@ -5,9 +5,7 @@
 
 ## Sobre
 Opa! Meu nome é Davi Lucas 👋
-Estudo Programação de Jogos Digitais na Universidade Estácio de Sá (2024–2027) e sou apaixonado por tudo que envolve programação e criatividade, desde interfaces interativas até l.
-
-Atualmente estou focado em desenvolvimento front-end, explorando React, TypeScript e outros frameworks para aprimorar meus conhecimentos e criar experiências cada vez mais dinâmicas.
+Estudo Programação de Jogos Digitais na Universidade Estácio de Sá (2024–2027) e sou apaixonado por tudo que envolve programação e criatividade, desde interfaces interativas até lógica e resolução de problemas.
 <br>
 
 <img src="https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width ="30">&nbsp; **_Skills_**
