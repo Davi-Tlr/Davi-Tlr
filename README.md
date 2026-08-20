@@ -1,9 +1,6 @@
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:161b22,100:1f2937&height=180&section=header&text=Davi%20Lucas&fontColor=c9d1d9&fontSize=36&fontAlignY=35&desc=software%20developer&descColor=8b949e&descSize=14&descAlignY=55" width="100%" alt="" />
 </p>
-
-<sub>RIO DE JANEIRO</sub>
-
 <h2>Python · Applications &amp; Infrastructure</h2>
 
 <img align="right" width="130" src="./eu.png" alt="me" />
@@ -54,8 +51,9 @@ problem I find interesting enough to solve.
       <p align="center">
         <img src="https://raw.githubusercontent.com/Davi-Tlr/livekit-selfhost/main/assets/livekit-preview.png" width="90%" alt="LiveKit screen share" />
       </p>
-      <sub><i>ui is still a mess, I know</i></sub>
-    </td>
+      <p align="center">
+        <sub><i>ui is still a mess, I know</i></sub>
+      </p align="center">
   </tr>
 </table>
 
