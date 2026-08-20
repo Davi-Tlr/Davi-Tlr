@@ -1,52 +1,87 @@
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-<div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=40&center=true&vCenter=true&width=1200&lines=Olá!;Meu+nome+é+Davi+Lucas;Bem-Vindo+ao+meu+Perfil!&color=F4F4F4&background=0D1117" alt="Typing SVG" />
-</div>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:161b22,100:1f2937&height=180&section=header&text=Davi%20Lucas&fontColor=c9d1d9&fontSize=36&fontAlignY=35&desc=software%20developer&descColor=8b949e&descSize=14&descAlignY=55" width="100%" alt="" />
+</p>
 
-## Sobre
-Opa! Meu nome é Davi Lucas 👋
-Estudo Programação de Jogos Digitais na Universidade Estácio de Sá (2024–2027) e sou apaixonado por tudo que envolve programação e criatividade, desde interfaces interativas até lógica e resolução de problemas.
+<sub>RIO DE JANEIRO</sub>
+
+<h2>Python · Applications &amp; Infrastructure</h2>
+
+<img align="right" width="130" src="./eu.png" alt="me" />
+
+I build automation tools and data readers in Python at work,
+and my own projects outside of it: a flight planning app for
+Brazilian pilots, a self-hosted video server, and whatever
+problem I find interesting enough to solve.
+
+<sub><i>home → RPG → code → break something → understand why → ⟳</i></sub>
+
+<br><br><br>
+
+<p align="center">─────────────── ✦ ───────────────</p>
+
 <br>
 
-<img src="https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width ="30">&nbsp; **_Skills_**
-| Languages & Syntax | Frontend Development | Backend & Frameworks |
-|--------------------|----------------------|----------------------|
-| ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) | ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white) ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)|
-
-| Design & Prototyping | Deployment & Hosting | Development Tools |
-|--------------------|----------------------|----------------------|
-| ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Adobe Illustrator](https://img.shields.io/badge/Adobe%20Illustrator-310000?style=for-the-badge&logo=Adobe%20Illustrator&logoColor=FF9A00) | ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white) | ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) |
+### What I'm building
 
 <br>
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-## <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="35">&nbsp; **_Meu último Projeto_**
 
 <table>
   <tr>
-    <td width="50%">
-      <h3 align="center">RumbleStick</h3>
-      <div align="center">
-        <a href="https://github.com/Davi-Tlr/RumbleStick" target="_blank">
-          <img src="https://github.com/Davi-Tlr/RumbleStick/raw/main/screenshots/hero.png" width="500" style="object-fit: cover;" alt="RumbleStick">
-        </a>
-        <p>
-          <a href="https://github.com/Davi-Tlr/RumbleStick?tab=readme-ov-file#projeto-rumblestick" target="_blank">
-            <br>
-            <img src="https://img.shields.io/badge/CÓDIGO-ff9?style=for-the-badge&logo=github&logoColor=red&color=black">
-          </a>
-        </p>
-        <p>O <strong>RumbleStick</strong> é um site fictício desenvolvido como parte do TCC do curso de informática da Microcamp. O objetivo principal deste projeto é apresentar uma empresa indie brasileira de jogos com uma identidade cultural forte e um toque de humor.
-</p>
-      </div>
+    <td width="50%" valign="top">
+      <h3 align="center"><a href="https://github.com/Davi-Tlr/NavGate">NavGate</a></h3>
+      <p align="center">
+        VFR flight planning for Brazilian pilots.
+        React Native and TypeScript, MapLibre aeronautical
+        charts, live METAR/TAF weather, GPS routing,
+        and an offline database of 4,609 airfields.
+      </p>
+      <p align="center">
+        <img src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/wac.jpg" width="30%" alt="WAC chart" />
+        &nbsp;
+        <img src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" width="30%" alt="METAR/TAF" />
+        &nbsp;
+        <img src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" width="30%" alt="Satellite route" />
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3 align="center"><a href="https://github.com/Davi-Tlr/livekit-selfhost">livekit-selfhost</a></h3>
+      <p align="center">
+        Self-hosted realtime video infrastructure.
+        Docker Compose with Caddy for automatic SSL
+        and Redis, deployed to a Linux server
+        in a single command.
+      </p>
+      <p align="center">
+        <img src="https://raw.githubusercontent.com/Davi-Tlr/livekit-selfhost/main/assets/livekit-preview.png" width="90%" alt="LiveKit screen share" />
+      </p>
+      <sub><i>ui is still a mess, I know</i></sub>
     </td>
   </tr>
 </table>
+
 <br>
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-<div align="center">
-  
-  <a href="mailto:davitlr.ti@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
-  <a href="https://www.linkedin.com/in/davitlr/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-</div>
+<p align="center">─────────────── ✦ ───────────────</p>
+
+<br>
+
+<p align="center">
+  <img src="./Baldurs-Gate-II.gif" width="48%" alt="" />
+  <br><br>
+  <sub><i>
+    I also build things for my RPG table that I can't show here.<br>
+    My players know this GitHub. No spoilers.
+  </i></sub>
+</p>
+
+<br>
+
+<p align="center">
+  <sub>also working with · JavaScript · React Native · Docker · Linux · HTML/CSS</sub>
+</p>
+
+<p align="center">
+  <a href="https://linkedin.com/in/davitlr/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  &nbsp;
+  <a href="mailto:davitlr.ti@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white" alt="Email" /></a>
+</p>
