@@ -49,7 +49,7 @@ problem I find interesting enough to solve.
         in a single command.
       </p>
       <p align="center">
-        <img src="https://raw.githubusercontent.com/Davi-Tlr/livekit-selfhost/main/assets/livekit-preview.png" width="90%" alt="LiveKit screen share" />
+        <img src="https://raw.githubusercontent.com/Davi-Tlr/livekit-selfhost/main/assets/mazestream-preview.png" width="90%" alt="Mazestream screen share" />
       </p>
       <p align="center">
         <sub><i>ui is still a mess, I know</i></sub>
