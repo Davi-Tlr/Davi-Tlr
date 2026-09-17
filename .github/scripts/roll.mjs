@@ -70,31 +70,42 @@ const rows = journal.map(e =>
   `\`d${e.sides}\` **${e.roll}** · [@${esc(e.actor)}](https://github.com/${esc(e.actor)}) ${esc(e.text)}`
 ).join('<br>');
 
-const die = n => `[d${n}](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d${n}&body=Press+Create.)`;
+const BODY = encodeURIComponent(
+  'The party is waiting at the mouth of the tunnel.\n\n' +
+  'Press **Create** below and the die is cast — a workflow rolls it, moves them,\n' +
+  'and closes this issue. Nothing else is asked of you.\n');
+const die = n => `[d${n}](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d${n}&body=${BODY})`;
 
 const vaultRows = state.vault.length
   ? state.vault.map(v => `**${esc(v.relic)}** — ${esc(v.dungeon)}, by [@${esc(v.actor)}](https://github.com/${esc(v.actor)}) in ${v.rolls} roll${v.rolls === 1 ? '' : 's'}`).join('<br>')
   : 'Empty. Nothing has been brought back yet.';
 
+const away = state.dungeon.floor - state.depth;
+const standing = state.depth === 0
+  ? `They are at the entrance, packs checked, ${state.torches} torches lit.`
+  : `They are ${away} level${away === 1 ? '' : 's'} short of it, with ${state.torches} torch${state.torches === 1 ? '' : 'es'} still burning.`;
+
 const block = `${START_MARK}
-<img align="left" width="42%" src="./assets/descent.svg" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
+<table>
+<tr>
+<td width="42%" valign="top">
+
+<img src="./assets/descent.svg" width="100%" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
+
+</td>
+<td width="58%" valign="top">
 
 ### ${esc(state.dungeon.name)}
 
-**The floor lies on level ${state.dungeon.floor}.** The party is on level ${state.depth} with
-${state.torches} torch${state.torches === 1 ? '' : 'es'} lit. Reach the floor and the relic comes up with
-them; let the last torch go out and the dungeon keeps it.
+Somewhere on level ${state.dungeon.floor} lies **${esc(state.dungeon.relic)}**.
+${standing}${state.dungeon.attempts ? ` ${state.dungeon.attempts} expedition${state.dungeon.attempts === 1 ? ' has' : 's have'} already failed here.` : ''}
 
-Roll a d20 to move them — it opens a pre-filled issue, just press **Create**.
-High takes them deeper, low costs light.
+A high roll takes them deeper. A low one costs light. When the last torch
+goes out they climb back up empty-handed, and the dungeon keeps what it has.
 
-**${die(20)}** &nbsp;·&nbsp; won ${state.wins} · lost ${state.losses}${state.best !== null ? ` · best ${state.best} rolls` : ''}
+**${die(20)}** — one click, then press *Create*. That is the whole game.
 
-<p align="center">
-  <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.">
-    <img src="./assets/last-roll.svg" width="240" alt="Latest d20 roll" />
-  </a>
-</p>
+<sub>**${state.wins}** recovered &nbsp;·&nbsp; **${state.losses}** lost${state.best !== null ? ` &nbsp;·&nbsp; fastest descent: **${state.best}** rolls` : ''}</sub>
 
 <details>
 <summary>the vault &nbsp;·&nbsp; ${state.vault.length} recovered</summary>
@@ -102,9 +113,12 @@ High takes them deeper, low costs light.
 <sub>${vaultRows}</sub>
 </details>
 
+</td>
+</tr>
+</table>
+
 <sub>${rows}</sub>
 
-<br clear="both" />
 ${END_MARK}`;
 
 const readme = readFileSync('README.md', 'utf8');

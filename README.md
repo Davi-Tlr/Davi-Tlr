@@ -22,7 +22,14 @@ flight planner. I run an RPG table, so I built the room it meets in.
 
 <!-- ─────────────  NavGate · GIF left  ───────────── -->
 
-<img align="left" width="26%" src="./assets/navgate.gif" alt="NavGate: airfield search, METAR/TAF, route planning and aeronautical charts" />
+<table>
+<tr>
+<td width="30%" valign="top">
+
+<img src="./assets/navgate.gif" width="100%" alt="NavGate: airfield search, METAR/TAF, route planning and aeronautical charts" />
+
+</td>
+<td width="70%" valign="top">
 
 ### [NavGate](https://github.com/Davi-Tlr/NavGate)
 
@@ -33,18 +40,20 @@ straight from DECEA, live METAR/TAF off the NOAA feed, route legs solved
 by Haversine, terrain profiles under the track — and 4,609 airfields that
 still answer with the phone in airplane mode.
 
-`React Native` `TypeScript` `Expo` `MapLibre` `SQLite`
+`React Native` · `TypeScript` · `Expo` · `MapLibre` · `SQLite`
 
 <details>
 <summary>More screens</summary>
 <br>
-<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" alt="METAR and TAF" />
-<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/calculadora.jpeg" alt="Flight calculation" />
-<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" alt="Charts over satellite" />
-<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/gps.jpeg" alt="GPS position" />
+<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" alt="METAR and TAF" />
+<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/calculadora.jpeg" alt="Flight calculation" />
+<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" alt="Charts over satellite" />
+<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/gps.jpeg" alt="GPS position" />
 </details>
 
-<br clear="both" />
+</td>
+</tr>
+</table>
 
 <p align="center">
   <img src="./assets/divider.svg" width="70%" alt="" />
@@ -52,7 +61,9 @@ still answer with the phone in airplane mode.
 
 <!-- ─────────────  Mazestream · GIF right  ───────────── -->
 
-<img align="right" width="45%" src="./assets/mazestream.gif" alt="A live Mazestream room with two screens on stage" />
+<table>
+<tr>
+<td width="55%" valign="top">
 
 ### [Mazestream](https://github.com/Davi-Tlr/Mazestream)
 
@@ -63,11 +74,18 @@ pointers that fade on their own, and clips cut in the browser so the
 server never has to record a thing. Two screens fit on stage at once.
 Runs on localhost or on your own box behind Docker Compose.
 
-`React` `LiveKit` `WebRTC` `Docker` `Node.js`
+`React` · `LiveKit` · `WebRTC` · `Docker` · `Node.js`
 
 <sub><i>the green is my friend's editor theme, not the app. I have raised it with him.</i></sub>
 
-<br clear="both" />
+</td>
+<td width="45%" valign="top">
+
+<img src="./assets/mazestream.gif" width="100%" alt="A live Mazestream room with two screens on stage" />
+
+</td>
+</tr>
+</table>
 
 <p align="center">
   <img src="./assets/divider.svg" width="70%" alt="" />
@@ -106,7 +124,14 @@ taught me more about edge cases than any tutorial ever did.
 
 <!-- ─────────────  The table  ───────────── -->
 
-<img align="left" width="38%" src="./Baldurs-Gate-II.gif" alt="Baldur's Gate II" />
+<table>
+<tr>
+<td width="38%" valign="top">
+
+<img src="./Baldurs-Gate-II.gif" width="100%" alt="Baldur's Gate II" />
+
+</td>
+<td width="62%" valign="top">
 
 ### The table
 
@@ -116,15 +141,17 @@ can't show here.
 
 <sub><i>My players know this GitHub. No spoilers.</i></sub>
 
-<br clear="both" />
+</td>
+</tr>
+</table>
 
 <!-- DICE:START -->
-<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: the expedition has not set off" />
+<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: level 3 of 4" />
 
 ### The Forgotten Cistern of the Quiet King
 
-**The floor lies on level 4.** The party is at the entrance with
-3 torches lit. Reach the floor and the relic comes up with
+**The floor lies on level 4.** The party is on level 3 with
+1 torch lit. Reach the floor and the relic comes up with
 them; let the last torch go out and the dungeon keeps it.
 
 Roll a d20 to move them — it opens a pre-filled issue, just press **Create**.
@@ -144,7 +171,7 @@ High takes them deeper, low costs light.
 <sub>Empty. Nothing has been brought back yet.</sub>
 </details>
 
-<sub>No one has rolled yet. The expedition waits.</sub>
+<sub>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back<br>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
 
 <br clear="both" />
 <!-- DICE:END -->
