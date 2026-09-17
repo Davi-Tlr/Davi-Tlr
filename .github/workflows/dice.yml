@@ -1,0 +1,47 @@
+name: Dice
+
+on:
+  issues:
+    types: [opened]
+
+# Only the roll job may write; nothing here runs code from the issue.
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: dice
+  cancel-in-progress: false
+
+jobs:
+  roll:
+    if: startsWith(github.event.issue.title, 'roll:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Roll
+        id: roll
+        env:
+          # Passed as environment values, never interpolated into a shell line.
+          TITLE: ${{ github.event.issue.title }}
+          ACTOR: ${{ github.event.issue.user.login }}
+        run: node .github/scripts/roll.mjs
+
+      - name: Commit the new state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md assets/last-roll.svg assets/descent.svg .github/chronicle.json
+          git diff --staged --quiet && exit 0
+          git commit -m "chronicle: the party moves"
+          git push
+
+      - name: Close the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh issue close "$NUMBER" --repo "$REPO" \
+            --comment "Rolled. The descent on the profile has moved — thanks for playing."

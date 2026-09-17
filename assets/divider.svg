@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 40" width="800" height="40" role="img" aria-label="">
+  <defs>
+    <!-- userSpaceOnUse: a horizontal <line> has a zero-height bounding box,
+         and an objectBoundingBox gradient over it is degenerate — it paints
+         nothing at all. -->
+    <linearGradient id="line" gradientUnits="userSpaceOnUse" x1="40" y1="20" x2="760" y2="20">
+      <stop offset="0%"   stop-color="#6e7681" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#6e7681" stop-opacity="0.9"/>
+      <stop offset="78%"  stop-color="#6e7681" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#6e7681" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="spark" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="16">
+      <stop offset="0%"   stop-color="#58a6ff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <line x1="40" y1="20" x2="356" y2="20" stroke="url(#line)" stroke-width="1.6"/>
+  <line x1="444" y1="20" x2="760" y2="20" stroke="url(#line)" stroke-width="1.6"/>
+
+  <!-- a light that travels the rule, then comes back -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+                      values="60,20; 740,20; 60,20" dur="9s" repeatCount="indefinite"
+                      calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1"/>
+    <circle r="15" fill="url(#spark)">
+      <animate attributeName="opacity" values="0;1;1;0;0;1;1;0" dur="9s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <text x="400" y="27" text-anchor="middle" font-size="18" fill="#58a6ff">
+    &#10022;
+    <animate attributeName="opacity" values="0.45;0.95;0.45" dur="4s" repeatCount="indefinite"/>
+  </text>
+</svg>

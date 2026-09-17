@@ -1,81 +1,154 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:161b22,100:1f2937&height=180&section=header&text=Davi%20Lucas&fontColor=c9d1d9&fontSize=36&fontAlignY=35&desc=software%20developer&descColor=8b949e&descSize=14&descAlignY=55" width="100%" alt="" />
+  <img src="./assets/banner.svg" width="100%" alt="Davi Lucas — software developer" />
 </p>
-<h2>Python · Applications &amp; Infrastructure</h2>
 
 <img align="right" width="130" src="./eu.png" alt="me" />
 
-I build automation tools and data readers in Python at work,
-and my own projects outside of it: a flight planning app for
-Brazilian pilots, a self-hosted video server, and whatever
-problem I find interesting enough to solve.
+<h2>I build the tools I need myself.</h2>
+
+I write parsers for a living — the kind that turn Brazilian
+regulatory filings into something a person can actually read.
+
+Everything else here follows the same rule: I fly, so I built a
+flight planner. I run an RPG table, so I built the room it meets in.
 
 <sub><i>home → RPG → code → break something → understand why → ⟳</i></sub>
 
-<br><br><br>
-
-<p align="center">─────────────── ✦ ───────────────</p>
-
-<br>
-
-### What I'm building
-
-<br>
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <h3 align="center"><a href="https://github.com/Davi-Tlr/NavGate">NavGate</a></h3>
-      <p align="center">
-        VFR flight planning for Brazilian pilots.
-        React Native and TypeScript, MapLibre aeronautical
-        charts, live METAR/TAF weather, GPS routing,
-        and an offline database of 4,609 airfields.
-      </p>
-      <p align="center">
-        <img src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/wac.jpg" width="30%" alt="WAC chart" />
-        &nbsp;
-        <img src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" width="30%" alt="METAR/TAF" />
-        &nbsp;
-        <img src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" width="30%" alt="Satellite route" />
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <h3 align="center"><a href="https://github.com/Davi-Tlr/livekit-selfhost">livekit-selfhost</a></h3>
-      <p align="center">
-        Self-hosted realtime video infrastructure.
-        Docker Compose with Caddy for automatic SSL
-        and Redis, deployed to a Linux server
-        in a single command.
-      </p>
-      <p align="center">
-        <img src="https://raw.githubusercontent.com/Davi-Tlr/livekit-selfhost/main/assets/mazestream-preview.png" width="90%" alt="Mazestream screen share" />
-      </p>
-      <p align="center">
-        <sub><i>ui is still a mess, I know</i></sub>
-      </p align="center">
-  </tr>
-</table>
-
-<br>
-
-<p align="center">─────────────── ✦ ───────────────</p>
-
-<br>
+<br clear="both" />
 
 <p align="center">
-  <img src="./Baldurs-Gate-II.gif" width="48%" alt="" />
-  <br><br>
-  <sub><i>
-    I also build things for my RPG table that I can't show here.<br>
-    My players know this GitHub. No spoilers.
-  </i></sub>
+  <img src="./assets/divider.svg" width="70%" alt="" />
 </p>
 
+<!-- ─────────────  NavGate · GIF left  ───────────── -->
+
+<img align="left" width="26%" src="./assets/navgate.gif" alt="NavGate: airfield search, METAR/TAF, route planning and aeronautical charts" />
+
+### [NavGate](https://github.com/Davi-Tlr/NavGate)
+
+**Every good VFR planner charges in dollars and is built for someone else's airspace.**
+
+So this one is built for Brazil. MapLibre aeronautical charts pulled
+straight from DECEA, live METAR/TAF off the NOAA feed, route legs solved
+by Haversine, terrain profiles under the track — and 4,609 airfields that
+still answer with the phone in airplane mode.
+
+`React Native` `TypeScript` `Expo` `MapLibre` `SQLite`
+
+<details>
+<summary>More screens</summary>
+<br>
+<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" alt="METAR and TAF" />
+<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/calculadora.jpeg" alt="Flight calculation" />
+<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" alt="Charts over satellite" />
+<img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/gps.jpeg" alt="GPS position" />
+</details>
+
+<br clear="both" />
+
+<p align="center">
+  <img src="./assets/divider.svg" width="70%" alt="" />
+</p>
+
+<!-- ─────────────  Mazestream · GIF right  ───────────── -->
+
+<img align="right" width="45%" src="./assets/mazestream.gif" alt="A live Mazestream room with two screens on stage" />
+
+### [Mazestream](https://github.com/Davi-Tlr/Mazestream)
+
+**My table needed a room that fit it, so the room has an RPG mode.**
+
+Screen sharing over LiveKit and WebRTC, with a shared whiteboard,
+pointers that fade on their own, and clips cut in the browser so the
+server never has to record a thing. Two screens fit on stage at once.
+Runs on localhost or on your own box behind Docker Compose.
+
+`React` `LiveKit` `WebRTC` `Docker` `Node.js`
+
+<sub><i>the green is my friend's editor theme, not the app. I have raised it with him.</i></sub>
+
+<br clear="both" />
+
+<p align="center">
+  <img src="./assets/divider.svg" width="70%" alt="" />
+</p>
+
+<!-- ─────────────  Day job  ───────────── -->
+
+### The day job
+
+Brazilian financial and regulatory data arrives as PDFs, fixed-width text
+and XML that was never meant to be read twice. I write the Python that
+reads it anyway — parsers, reconciliation, and the automation that keeps
+an analyst from doing it by hand.
+
+<details>
+<summary><b>What that actually looks like</b></summary>
+
+<br>
+
+A filing lands as a 200-page PDF with tables that span pages, or as a
+fixed-width file where column 47 means something different depending on
+what column 12 said. The job is never the happy path — it's the footnote
+that shifts every row below it, the encoding that changes mid-file, the
+total that doesn't reconcile because one record was amended six months later.
+
+Most of that work lives in private repositories. What I can say is that it
+taught me more about edge cases than any tutorial ever did.
+
+</details>
+
 <br>
 
 <p align="center">
-  <sub>also working with · JavaScript · React Native · Docker · Linux · HTML/CSS</sub>
+  <img src="./assets/divider.svg" width="70%" alt="" />
+</p>
+
+<!-- ─────────────  The table  ───────────── -->
+
+<img align="left" width="38%" src="./Baldurs-Gate-II.gif" alt="Baldur's Gate II" />
+
+### The table
+
+I've been running the same campaign long enough that it needed software
+of its own — Foundry VTT modules, a streaming room, and a few things I
+can't show here.
+
+<sub><i>My players know this GitHub. No spoilers.</i></sub>
+
+<br clear="both" />
+
+<!-- DICE:START -->
+<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: the expedition has not set off" />
+
+### The Forgotten Cistern of the Quiet King
+
+**The floor lies on level 4.** The party is at the entrance with
+3 torches lit. Reach the floor and the relic comes up with
+them; let the last torch go out and the dungeon keeps it.
+
+Roll a d20 to move them — it opens a pre-filled issue, just press **Create**.
+High takes them deeper, low costs light.
+
+**[d20](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.)** &nbsp;·&nbsp; won 0 · lost 0
+
+<details>
+<summary>the vault &nbsp;·&nbsp; 0 recovered</summary>
+<br>
+<sub>Empty. Nothing has been brought back yet.</sub>
+</details>
+
+<sub>No one has rolled yet. The expedition waits.</sub>
+
+<br clear="both" />
+<!-- DICE:END -->
+
+<p align="center">
+  <img src="./assets/divider.svg" width="70%" alt="" />
+</p>
+
+<p align="center">
+  <sub>Python · JavaScript · TypeScript · React Native · Docker · Linux · SQL</sub>
 </p>
 
 <p align="center">
