@@ -45,10 +45,7 @@ still answer with the phone in airplane mode.
 <details>
 <summary>More screens</summary>
 <br>
-<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" alt="METAR and TAF" />
-<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/calculadora.jpeg" alt="Flight calculation" />
-<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" alt="Charts over satellite" />
-<img width="23%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/gps.jpeg" alt="GPS position" />
+<p><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" alt="METAR and TAF" /><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/calculadora.jpeg" alt="Flight calculation" /><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" alt="Charts over satellite" /><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/gps.jpeg" alt="GPS position" /></p>
 </details>
 
 </td>

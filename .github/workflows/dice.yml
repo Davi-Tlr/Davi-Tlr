@@ -33,6 +33,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md assets/last-roll.svg assets/descent.svg .github/chronicle.json
+          git reset -q .github/roll-reply.md 2>/dev/null || true
           git diff --staged --quiet && exit 0
           git commit -m "chronicle: the party moves"
           git push
@@ -43,5 +44,9 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}
         run: |
-          gh issue close "$NUMBER" --repo "$REPO" \
-            --comment "Rolled. The descent on the profile has moved — thanks for playing."
+          if [ -f .github/roll-reply.md ]; then
+            gh issue close "$NUMBER" --repo "$REPO" --body-file .github/roll-reply.md
+          else
+            gh issue close "$NUMBER" --repo "$REPO" \
+              --comment "The roll was not accepted — the title has to be exactly \`roll:d20\`."
+          fi

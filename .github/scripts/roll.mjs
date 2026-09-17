@@ -11,6 +11,9 @@ import { renderDie } from './die.mjs';
 import { renderScene } from './scene.mjs';
 import { advance, START, makeDungeon } from './chronicle.mjs';
 
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
+
 const SIDES = [4, 6, 8, 10, 12, 20, 100];
 const STATE_PATH = '.github/chronicle.json';
 const JOURNAL = 4;
@@ -48,6 +51,7 @@ if (existsSync(STATE_PATH)) {
   }
 }
 
+const prevDungeon = saved.dungeon ?? START.dungeon;
 const { state, entry, outcome } = advance(saved, { roll, sides, actor });
 const journal = [entry, ...(Array.isArray(saved.journal) ? saved.journal : [])].slice(0, JOURNAL);
 
@@ -59,9 +63,36 @@ mkdirSync('assets', { recursive: true });
 writeFileSync('assets/last-roll.svg', renderDie({ value: roll, sides, actor }));
 writeFileSync('assets/descent.svg', renderScene({ ...state, entry, outcome }));
 
+
+// ---------- the reply to whoever rolled ----------
+const headline = outcome === 'win'
+  ? `You rolled **${roll}** — and that was the one.`
+  : outcome === 'loss'
+  ? `You rolled **${roll}**, and the light ran out.`
+  : outcome === 'crit'
+  ? `You rolled a **natural ${sides}**.`
+  : outcome === 'fumble'
+  ? `You rolled a **1**.`
+  : `You rolled **${roll}**.`;
+
+const wherenow = outcome === 'win'
+  ? `It is in the vault now, with your name on it. A new dungeon has opened: **${esc(state.dungeon.name)}**, and its floor lies on level ${state.dungeon.floor}.`
+  : outcome === 'loss'
+  ? `The party climbed back out empty-handed. **${esc(prevDungeon.name)}** keeps its floor, and has now turned back ${state.dungeon.attempts} expedition${state.dungeon.attempts === 1 ? '' : 's'}. They will go again.`
+  : `They are on level ${state.depth} of ${state.dungeon.floor}, with ${state.torches} torch${state.torches === 1 ? '' : 'es'} lit.`;
+
+writeFileSync('.github/roll-reply.md', `### ${headline}
+
+The party ${esc(entry.text)}.
+
+${wherenow}
+
+Running total: **${state.wins}** recovered, **${state.losses}** lost.${state.best !== null ? ` Fastest descent so far: **${state.best}** rolls.` : ''}
+
+[See where they are now →](https://github.com/Davi-Tlr)
+`);
+
 // ---------- README ----------
-const esc = s => String(s).replace(/[&<>"']/g, c =>
-  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
 
 const START_MARK = '<!-- DICE:START -->';
 const END_MARK = '<!-- DICE:END -->';
@@ -77,7 +108,7 @@ const BODY = encodeURIComponent(
 const die = n => `[d${n}](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d${n}&body=${BODY})`;
 
 const vaultRows = state.vault.length
-  ? state.vault.map(v => `**${esc(v.relic)}** — ${esc(v.dungeon)}, by [@${esc(v.actor)}](https://github.com/${esc(v.actor)}) in ${v.rolls} roll${v.rolls === 1 ? '' : 's'}`).join('<br>')
+  ? state.vault.map(v => `<b>${esc(v.relic)}</b> — ${esc(v.dungeon)}, by <a href="https://github.com/${esc(v.actor)}">@${esc(v.actor)}</a> in ${v.rolls} roll${v.rolls === 1 ? '' : 's'}`).join('<br>')
   : 'Empty. Nothing has been brought back yet.';
 
 const away = state.dungeon.floor - state.depth;
