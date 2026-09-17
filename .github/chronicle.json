@@ -1,0 +1,53 @@
+{
+  "dungeon": {
+    "id": 2,
+    "name": "The Forgotten Gaol of Ash",
+    "floor": 9,
+    "relic": "the name of something that would rather keep it",
+    "attempts": 0
+  },
+  "depth": 0,
+  "torches": 3,
+  "rolls": 0,
+  "wins": 1,
+  "losses": 0,
+  "best": 4,
+  "vault": [
+    {
+      "relic": "a ledger of debts nobody remembers owing",
+      "dungeon": "The Forgotten Cistern of the Quiet King",
+      "actor": "Davi-Tlr",
+      "rolls": 4
+    }
+  ],
+  "journal": [
+    {
+      "actor": "Davi-Tlr",
+      "roll": 17,
+      "sides": 20,
+      "text": "reached the floor of The Forgotten Cistern of the Quiet King and came back up with a ledger of debts nobody remembers owing",
+      "at": "2026-09-17T00:48:29.301Z"
+    },
+    {
+      "actor": "Davi-Tlr",
+      "roll": 10,
+      "sides": 20,
+      "text": "went down through water that came to the knee, and lost a torch to it",
+      "at": "2026-09-17T00:20:00.607Z"
+    },
+    {
+      "actor": "Davi-Tlr",
+      "roll": 4,
+      "sides": 20,
+      "text": "retreated up a level with something following, and did not look back",
+      "at": "2026-09-17T00:19:04.449Z"
+    },
+    {
+      "actor": "Davi-Tlr",
+      "roll": 15,
+      "sides": 20,
+      "text": "crossed the bridge over the underground river without waking anything",
+      "at": "2026-09-17T00:18:50.530Z"
+    }
+  ]
+}
