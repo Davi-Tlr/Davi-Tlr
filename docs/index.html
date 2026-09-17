@@ -848,17 +848,27 @@ $('reset').addEventListener('click', function () {
 
 // The public descent on the profile, read straight from the repository. It is
 // a different run with different stakes: that one is everybody's.
-(function shared() {
+var chronicleReady = (function shared() {
   var el = $('shared');
   var url = 'https://raw.githubusercontent.com/Davi-Tlr/Davi-Tlr/main/.github/chronicle.json';
   var issue = 'https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20';
-  fetch(url, { cache: 'no-store' }).then(function (r) {
+  return fetch(url, { cache: 'no-store' }).then(function (r) {
     if (!r.ok) throw new Error(r.status);
     return r.json();
   }).then(function (c) {
     el.innerHTML = '<span class="dot">the public chronicle ·</span> ' +
       escapeHtml(c.dungeon.name) + ', level ' + c.depth + ' of ' + c.dungeon.floor +
       ' · ' + c.wins + 'W ' + c.losses + 'L · <a href="' + issue + '">roll on it</a>';
+
+    // Nothing thrown here yet: take the dungeon the profile is showing, so the
+    // page opens where the reader just was. From the first roll it is theirs.
+    var untouched = !S.journal.length && !S.wins && !S.losses && !S.depth;
+    if (untouched && c.dungeon && c.dungeon.name) {
+      S.dungeon = { id: c.dungeon.id, name: c.dungeon.name, floor: c.dungeon.floor,
+                    relic: c.dungeon.relic, attempts: 0 };
+      save();
+      paint();
+    }
   }).catch(function () {
     el.innerHTML = '<span class="dot">the public chronicle ·</span> <a href="' + issue + '">roll on it</a>';
   });
@@ -872,6 +882,19 @@ matchMedia('(prefers-color-scheme: light)').addEventListener('change', function 
 fit();
 paint();
 requestAnimationFrame(frame);
+
+// Arriving with ?throw means the click that brought you here was the throw.
+// Wait for the chronicle first, or the throw lands before the dungeon is
+// seeded and the reader drops into a different one than they clicked from.
+// Never wait longer than it takes to feel instant.
+if (/throw/.test(location.search + location.hash)) {
+  var go = function () { go = function () {}; throwDie(); };
+  var late = setTimeout(function () { go(); }, 1100);
+  chronicleReady.then(function () {
+    clearTimeout(late);
+    setTimeout(function () { go(); }, 220);
+  });
+}
 
 })();
 </script>

@@ -8,10 +8,9 @@ const esc = s => String(s).replace(/[&<>"']/g, c =>
 export const START_MARK = '<!-- DICE:START -->';
 export const END_MARK = '<!-- DICE:END -->';
 
-const BODY = encodeURIComponent(
-  'The party is waiting at the mouth of the tunnel.\n\n' +
-  'Press **Create** below and the die is cast: a workflow rolls it, moves them,\n' +
-  'and closes this issue. Nothing else is asked of you.\n');
+// Deliberately almost empty: the less there is on the issue page, the more
+// obvious it is that Create is the only thing left to do.
+const BODY = encodeURIComponent('Press Create. The workflow rolls it and closes this issue.\n');
 
 export const ISSUE = `https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=${BODY}`;
 export const PAGE = 'https://davi-tlr.github.io/Davi-Tlr/';
@@ -37,9 +36,14 @@ export function renderBlock(state, journal) {
     : `They are ${away} level${away === 1 ? '' : 's'} short of it, with ${state.torches} torch${state.torches === 1 ? '' : 'es'} still burning.`;
 
   return `${START_MARK}
-<p align="center">
-  <img src="./assets/descent.svg" width="440" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
-</p>
+<table>
+<tr>
+<td width="50%" valign="middle">
+
+<img src="./assets/descent.svg" width="100%" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
+
+</td>
+<td width="50%" valign="middle">
 
 ### ${esc(state.dungeon.name)}
 
@@ -50,11 +54,14 @@ A high roll takes them deeper. A low one costs light. When the last torch
 goes out they climb back up empty-handed, and the dungeon keeps what it has.
 
 <p align="center">
-  <a href="${ISSUE}"><img src="./assets/last-roll.svg" width="240" alt="A d20 showing ${last.roll}, rolled by @${esc(last.actor)}" /></a>
+  <a href="${ISSUE}"><img src="./assets/last-roll.svg" width="240" alt="Roll the d20. It last showed ${last.roll}, for @${esc(last.actor)}" /></a>
 </p>
 
-**[Roll it](${ISSUE})**: one click, then press *Create*. That is the whole game.
-Or [throw one yourself →](${PAGE}), a real die in the browser, no issue and no waiting.
+**[Roll it](${ISSUE})** opens an issue with the title already filled in. Press Create and
+that is the roll: a workflow throws the die, moves the party and answers you in the thread.
+
+<sub>Want one without the wait? There is a real die at
+<a href="${PAGE}?throw">the descent</a>, in the browser, but that run is yours alone.</sub>
 
 <sub>**${state.wins}** recovered &nbsp;·&nbsp; **${state.losses}** lost${state.best !== null ? ` &nbsp;·&nbsp; fastest descent: **${state.best}** rolls` : ''}</sub>
 
@@ -63,6 +70,10 @@ Or [throw one yourself →](${PAGE}), a real die in the browser, no issue and no
 <br>
 <sub>${vaultRows}</sub>
 </details>
+
+</td>
+</tr>
+</table>
 
 <sub>${rows}</sub>
 
