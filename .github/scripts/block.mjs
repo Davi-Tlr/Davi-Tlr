@@ -1,6 +1,6 @@
 // The README block, in one place. The workflow writes it after every roll and
 // the preview script renders it from the same state, so what gets reviewed is
-// the same text that gets committed — no hand-editing the README to match.
+// the same text that gets committed. No hand-editing the README to match.
 
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
@@ -10,7 +10,7 @@ export const END_MARK = '<!-- DICE:END -->';
 
 const BODY = encodeURIComponent(
   'The party is waiting at the mouth of the tunnel.\n\n' +
-  'Press **Create** below and the die is cast — a workflow rolls it, moves them,\n' +
+  'Press **Create** below and the die is cast: a workflow rolls it, moves them,\n' +
   'and closes this issue. Nothing else is asked of you.\n');
 
 export const ISSUE = `https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=${BODY}`;
@@ -28,7 +28,7 @@ export function renderBlock(state, journal) {
   ).join('<br>');
 
   const vaultRows = state.vault.length
-    ? state.vault.map(v => `<b>${esc(v.relic)}</b> — ${esc(v.dungeon)}, by <a href="https://github.com/${esc(v.actor)}">@${esc(v.actor)}</a> in ${v.rolls} roll${v.rolls === 1 ? '' : 's'}`).join('<br>')
+    ? state.vault.map(v => `<b>${esc(v.relic)}</b> · ${esc(v.dungeon)} · by <a href="https://github.com/${esc(v.actor)}">@${esc(v.actor)}</a> in ${v.rolls} roll${v.rolls === 1 ? '' : 's'}`).join('<br>')
     : 'Empty. Nothing has been brought back yet.';
 
   const away = state.dungeon.floor - state.depth;
@@ -37,14 +37,9 @@ export function renderBlock(state, journal) {
     : `They are ${away} level${away === 1 ? '' : 's'} short of it, with ${state.torches} torch${state.torches === 1 ? '' : 'es'} still burning.`;
 
   return `${START_MARK}
-<table>
-<tr>
-<td width="50%" valign="middle">
-
-<img src="./assets/descent.svg" width="100%" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
-
-</td>
-<td width="50%" valign="middle">
+<p align="center">
+  <img src="./assets/descent.svg" width="440" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
+</p>
 
 ### ${esc(state.dungeon.name)}
 
@@ -58,7 +53,7 @@ goes out they climb back up empty-handed, and the dungeon keeps what it has.
   <a href="${ISSUE}"><img src="./assets/last-roll.svg" width="240" alt="A d20 showing ${last.roll}, rolled by @${esc(last.actor)}" /></a>
 </p>
 
-**[Roll it](${ISSUE})** — one click, then press *Create*. That is the whole game.
+**[Roll it](${ISSUE})**: one click, then press *Create*. That is the whole game.
 Or [throw one yourself →](${PAGE}), a real die in the browser, no issue and no waiting.
 
 <sub>**${state.wins}** recovered &nbsp;·&nbsp; **${state.losses}** lost${state.best !== null ? ` &nbsp;·&nbsp; fastest descent: **${state.best}** rolls` : ''}</sub>
@@ -68,10 +63,6 @@ Or [throw one yourself →](${PAGE}), a real die in the browser, no issue and no
 <br>
 <sub>${vaultRows}</sub>
 </details>
-
-</td>
-</tr>
-</table>
 
 <sub>${rows}</sub>
 

@@ -1,6 +1,6 @@
 // Draws the chronicle as a cross-section of the dungeon: where the party is,
 // how far the floor still is, how much light is left, and the scoreboard.
-// Torchlight is amber on purpose — the rest of the profile is blue, and the
+// Torchlight is amber on purpose: the rest of the profile is blue, and the
 // dungeon should not look like the flight planner.
 
 const esc = s => String(s).replace(/[&<>"']/g, c =>
@@ -94,7 +94,7 @@ export function renderScene(state) {
       : `\n    <circle cx="${x}" cy="${FY - 2}" r="2" fill="#2a2f38"/>`;
   }
 
-  // The name gets the whole top line now — the scoreboard moved to the foot,
+  // The name gets the whole top line now that the scoreboard moved to the foot,
   // where it is not competing with it for width.
   // wrap() breaks on a word boundary, so a name that does not fit comes back
   // looking like a complete name. Say that it was cut.

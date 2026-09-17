@@ -1,5 +1,5 @@
 // The chronicle: a procedurally named dungeon with a floor to reach, a relic
-// to bring back, and a scoreboard. No model, no API — seeded tables are how a
+// to bring back, and a scoreboard. No model, no API. Seeded tables are how a
 // table does this anyway, and they keep the workflow deterministic and free.
 
 import { randomInt } from 'node:crypto';
@@ -74,7 +74,7 @@ export const START = {
 const TABLE = [
   { min: 20, max: 20, depth: +2, torches: +1, lines: [
     'found a stair carved by no human hand, and took it two levels down',
-    'pried open a sealed door — behind it a shaft going down, and a torch still burning',
+    'pried open a sealed door, and behind it a shaft going down with a torch still burning',
     'followed the draught to a chasm and descended it in one rope-length',
   ]},
   { min: 15, max: 19, depth: +2, torches: 0, lines: [
@@ -164,7 +164,7 @@ export function advance(prev, { roll, sides, actor }) {
   if (torches <= 0) {
     // The light fails. The dungeon keeps its secret and waits for the next try.
     outcome = 'loss';
-    text = `${text} — then the last torch went out, and ${dungeon.name} kept its floor`;
+    text = `${text}. Then the last torch went out, and ${dungeon.name} kept its floor`;
     losses += 1;
     nextDungeon = { ...dungeon, attempts: dungeon.attempts + 1 };
     return {

@@ -144,7 +144,7 @@
     <h1>The Descent</h1>
     <p>Grab the die and throw it. A high roll takes the party deeper; a low one
       costs light. When the last torch goes out they climb back up empty-handed.
-      This run is yours alone — it lives in this browser and nowhere else.</p>
+      This run is yours alone. It lives in this browser and nowhere else.</p>
   </header>
 
   <div class="board">
@@ -209,7 +209,7 @@
 
 var MAX_TORCHES = 3;
 
-// mulberry32 — the same dungeon id always yields the same dungeon.
+// mulberry32: the same dungeon id always yields the same dungeon.
 function seeded(seed) {
   var a = seed >>> 0;
   function next() {
@@ -268,7 +268,7 @@ function freshState() {
 var TABLE = [
   { min:20, max:20, depth:+2, torches:+1, lines:[
     'found a stair carved by no human hand, and took it two levels down',
-    'pried open a sealed door — behind it a shaft going down, and a torch still burning',
+    'pried open a sealed door, and behind it a shaft going down with a torch still burning',
     'followed the draught to a chasm and descended it in one rope-length'
   ]},
   { min:15, max:19, depth:+2, torches:0, lines:[
@@ -298,7 +298,7 @@ var TABLE = [
   ]}
 ];
 
-// Unbiased integer in [0,n) from the platform CSPRNG — the same fairness the
+// Unbiased integer in [0,n) from the platform CSPRNG, the same fairness the
 // workflow gets from node:crypto.
 function rint(n) {
   var a = new Uint32Array(1), lim = Math.floor(4294967296 / n) * n, v;
@@ -350,7 +350,7 @@ function advance(s, roll) {
     dungeon.attempts = dungeon.attempts + 1;
     return {
       outcome: 'loss',
-      text: text + ' — then the last torch went out, and ' + dungeon.name + ' kept its floor',
+      text: text + '. Then the last torch went out, and ' + dungeon.name + ' kept its floor',
       state: {
         dungeon: dungeon, depth: 0, torches: MAX_TORCHES, rolls: 0,
         wins: wins, losses: losses, best: best, vault: vault, journal: s.journal
@@ -782,7 +782,7 @@ function paint() {
   } else {
     S.vault.forEach(function (v) {
       var li = document.createElement('li');
-      li.innerHTML = '<b>' + escapeHtml(v.relic) + '</b> — ' + escapeHtml(v.dungeon) +
+      li.innerHTML = '<b>' + escapeHtml(v.relic) + '</b> · ' + escapeHtml(v.dungeon) +
                      ', in ' + v.rolls + ' roll' + (v.rolls === 1 ? '' : 's');
       vu.appendChild(li);
     });
@@ -804,7 +804,7 @@ function finish(n) {
 
   var head, body;
   if (r.outcome === 'win') {
-    head = 'You rolled <b>' + n + '</b> — and that was the one.';
+    head = 'You rolled <b>' + n + '</b>, and that was the one.';
     body = 'They came back up with ' + escapeHtml(before.relic) + '. It is in your vault now. A new dungeon has opened: <b>' +
            escapeHtml(S.dungeon.name) + '</b>, and its floor lies on level ' + S.dungeon.floor + '.';
   } else if (r.outcome === 'loss') {
