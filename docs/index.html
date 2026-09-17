@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Descent</title>
+<meta name="description" content="Throw a d20 and take a party down a procedurally generated dungeon. No sign-in, no waiting.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8E%B2</text></svg>">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#12171f; --line:#262d38; --line-2:#1c232d;
+    --ink:#e6edf3; --ink-2:#9aa7b4; --ink-3:#6e7681;
+    --blue:#58a6ff; --amber:#e3a008; --green:#3fb950; --red:#f85149;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:light){
+    :root{
+      --bg:#ffffff; --panel:#f6f8fa; --line:#d0d7de; --line-2:#e4e8ed;
+      --ink:#1f2328; --ink-2:#59636e; --ink-3:#818b98;
+      --blue:#0969da; --amber:#9a6700; --green:#1a7f37; --red:#cf222e;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--sans);
+    font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding:26px 16px 60px}
+
+  header{margin-bottom:22px}
+  .eyebrow{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 6px;
+  }
+  h1{font-family:var(--mono); font-size:clamp(24px,6vw,32px); font-weight:600; margin:0; letter-spacing:-.02em}
+  header p{color:var(--ink-2); font-size:14px; margin:8px 0 0; max-width:56ch}
+
+  .board{display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:20px; align-items:stretch}
+  .board > div:first-child{display:flex; flex-direction:column}
+  @media (max-width:720px){ .board{grid-template-columns:1fr} }
+
+  .stage{
+    position:relative; background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; overflow:hidden;
+  }
+  canvas{display:block; width:100%; height:auto; touch-action:none; cursor:grab}
+  canvas.dragging{cursor:grabbing}
+  .hint{
+    position:absolute; left:0; right:0; bottom:10px; text-align:center;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-3); pointer-events:none;
+    transition:opacity .3s;
+  }
+  .hint.gone{opacity:0}
+
+  .verdict{
+    margin-top:12px; min-height:62px; padding:12px 14px;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    border-left:3px solid var(--line);
+  }
+  .verdict.normal{border-left-color:var(--blue)}
+  .verdict.crit,.verdict.win{border-left-color:var(--green)}
+  .verdict.fumble,.verdict.loss{border-left-color:var(--red)}
+  .verdict b{font-family:var(--mono)}
+  .verdict p{margin:0; font-size:13.5px; color:var(--ink-2)}
+  .verdict p.head{color:var(--ink); font-size:14px; margin-bottom:3px}
+
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px;
+    display:flex; flex-direction:column}
+  .panel h2{
+    font-family:var(--mono); font-size:15px; font-weight:600; margin:0;
+    letter-spacing:-.01em;
+  }
+  .panel .sub{color:var(--ink-2); font-size:13.5px; margin:6px 0 0}
+  .panel .sub em{color:var(--amber); font-style:normal}
+
+  .track{margin:16px 0 0}
+  .levels{display:flex; gap:3px}
+  .lvl{
+    flex:1; height:9px; border-radius:2px; background:var(--line-2);
+    border:1px solid var(--line); transition:background .35s, box-shadow .35s;
+  }
+  .lvl.done{background:var(--blue); border-color:var(--blue)}
+  .lvl.here{background:var(--amber); border-color:var(--amber); box-shadow:0 0 0 2px color-mix(in srgb,var(--amber) 28%,transparent)}
+  .lvl.floor{border-style:dashed}
+  .meta{
+    display:flex; justify-content:space-between; gap:10px; margin-top:8px;
+    font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  }
+  .torches{letter-spacing:.18em; color:var(--amber)}
+  .torches .out{color:var(--ink-3); opacity:.3}
+  .torches .n{color:var(--ink-3); letter-spacing:0}
+
+  .scores{
+    display:flex; flex-wrap:wrap; gap:6px 18px; margin:16px 0 0; padding-top:14px;
+    border-top:1px solid var(--line-2);
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-3);
+  }
+  .scores b{color:var(--ink); font-weight:600}
+
+  .journal{margin:14px 0 0; padding:0; list-style:none}
+  .journal li{
+    font-size:12.5px; color:var(--ink-2); padding:5px 0;
+    border-top:1px solid var(--line-2); line-height:1.5;
+  }
+  .journal li:first-child{border-top:0}
+  .journal .n{font-family:var(--mono); color:var(--ink-3)}
+
+  .vault{margin:18px 0 0; padding-top:12px; border-top:1px solid var(--line-2); margin-top:auto}
+  .vault summary{
+    font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-3); cursor:pointer; padding:6px 0;
+  }
+  .vault summary:hover{color:var(--blue)}
+  .vault ul{margin:2px 0 0; padding:0 0 0 14px; font-size:12.5px; color:var(--ink-2)}
+  .vault li{padding:3px 0}
+
+  footer{
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--line-2);
+    display:flex; flex-wrap:wrap; gap:14px 22px; align-items:baseline;
+    font-size:13px; color:var(--ink-2);
+  }
+  footer a{color:var(--blue); text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .shared{flex:1; min-width:240px; font-size:12.5px}
+  .shared .dot{color:var(--ink-3)}
+  button.reset{
+    font-family:var(--mono); font-size:11px; background:none; border:0;
+    color:var(--ink-3); cursor:pointer; padding:0;
+  }
+  button.reset:hover{color:var(--red)}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Davi-Tlr</p>
+    <h1>The Descent</h1>
+    <p>Grab the die and throw it. A high roll takes the party deeper; a low one
+      costs light. When the last torch goes out they climb back up empty-handed.
+      This run is yours alone — it lives in this browser and nowhere else.</p>
+  </header>
+
+  <div class="board">
+    <div>
+      <div class="stage">
+        <canvas id="die" width="680" height="680" aria-label="A twenty-sided die"></canvas>
+        <div class="hint" id="hint">drag to spin &nbsp;·&nbsp; release to roll</div>
+      </div>
+      <div class="verdict" id="verdict">
+        <p class="head">Nothing thrown yet.</p>
+        <p>The party is waiting at the mouth of the tunnel.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 id="dname">—</h2>
+      <p class="sub" id="dsub">—</p>
+
+      <div class="track">
+        <div class="levels" id="levels" role="img" aria-label="Depth"></div>
+        <div class="meta">
+          <span id="depth">level 0</span>
+          <span class="torches" id="torches"></span>
+        </div>
+      </div>
+
+      <div class="scores">
+        <span><b id="wins">0</b> recovered</span>
+        <span><b id="losses">0</b> lost</span>
+        <span id="bestwrap" hidden>fastest: <b id="best">—</b> rolls</span>
+      </div>
+
+      <ul class="journal" id="journal"></ul>
+
+      <details class="vault">
+        <summary>the vault · <span id="vcount">0</span> recovered</summary>
+        <ul id="vault"><li>Empty. Nothing has been brought back yet.</li></ul>
+      </details>
+    </div>
+  </div>
+
+  <footer>
+    <div class="shared" id="shared">
+      <span class="dot">the public chronicle ·</span> loading…
+    </div>
+    <a href="https://github.com/Davi-Tlr">← back to the profile</a>
+    <button class="reset" id="reset" type="button">start over</button>
+  </footer>
+
+  <p class="sr" id="live" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function () {
+'use strict';
+
+// ===========================================================================
+// The chronicle. These tables mirror .github/scripts/chronicle.mjs, which is
+// what the workflow runs for the public descent on the profile. Change one and
+// change the other, or the two runs stop agreeing about how the world works.
+// ===========================================================================
+
+var MAX_TORCHES = 3;
+
+// mulberry32 — the same dungeon id always yields the same dungeon.
+function seeded(seed) {
+  var a = seed >>> 0;
+  function next() {
+    a = (a + 0x6D2B79F5) >>> 0;
+    var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+  next(); next(); next();   // warm-up: the first outputs still track the seed
+  return next;
+}
+
+var ADJ = ['Sunken','Hollow','Drowned','Gilded','Shattered','Whispering',
+           'Forgotten','Iron','Pale','Weeping','Buried','Starving'];
+var PLACE = ['Vault','Deep','Warren','Reliquary','Hold','Spiral',
+             'Barrow','Undercroft','Gaol','Cistern'];
+var OF = ['Ash','Nine Bells','the Cartographer','Salt','the Second Sun',
+          'Rust','the Quiet King','Moths','Lanterns','the Long Year',
+          'Broken Oaths','the Tenth Door'];
+var RELICS = [
+  'the Ashen Crown',
+  'a lantern that burns with no fuel',
+  "the Cartographer's last map",
+  'a key with no matching door',
+  'the Bell of Nine Tongues',
+  'a ledger of debts nobody remembers owing',
+  'the Pale Sigil',
+  'a compass that points at something other than north',
+  'a jar of the dark from the bottom floor',
+  'the Second Sun, or a convincing forgery of it',
+  'a door, removed intact from its frame',
+  'the name of something that would rather keep it'
+];
+
+function makeDungeon(id) {
+  // One stream per field. Drawing them all from a single stream correlates the
+  // choices and the same relic keeps coming back.
+  function draw(salt, list) { return list[Math.floor(seeded(id * salt)() * list.length)]; }
+  return {
+    id: id,
+    name: 'The ' + draw(2654435761, ADJ) + ' ' + draw(40503, PLACE) + ' of ' + draw(1103515245, OF),
+    floor: 4 + Math.floor(seeded(id * 22695477)() * 6),   // the level that ends it: 4–9
+    relic: draw(69069, RELICS),
+    attempts: 0
+  };
+}
+
+function freshState() {
+  return {
+    dungeon: makeDungeon(1 + rint(9999)),   // your run starts somewhere else
+    depth: 0, torches: MAX_TORCHES, rolls: 0,
+    wins: 0, losses: 0, best: null, vault: [], journal: []
+  };
+}
+
+var TABLE = [
+  { min:20, max:20, depth:+2, torches:+1, lines:[
+    'found a stair carved by no human hand, and took it two levels down',
+    'pried open a sealed door — behind it a shaft going down, and a torch still burning',
+    'followed the draught to a chasm and descended it in one rope-length'
+  ]},
+  { min:15, max:19, depth:+2, torches:0, lines:[
+    'pressed on through a passage that widened as it fell',
+    'crossed the bridge over the underground river without waking anything',
+    'picked the lock on the warden gate and went through quietly'
+  ]},
+  { min:10, max:14, depth:+1, torches:-1, lines:[
+    'took the long corridor. Something breathed at the far end of it',
+    'went down through water that came to the knee, and lost a torch to it',
+    'squeezed through the collapse. One torch did not survive the crawl'
+  ]},
+  { min:5, max:9, depth:+1, torches:-1, lines:[
+    'pushed on by guesswork, and paid a torch for the detour',
+    'backtracked twice into the same room, burning light for nothing',
+    'waited out something heavy walking past in the dark'
+  ]},
+  { min:2, max:4, depth:0, torches:-1, lines:[
+    'retreated up a level with something following, and did not look back',
+    'lost the passage to a cave-in and climbed back the way they came',
+    'was driven up the stair by a smell none of them wanted to name'
+  ]},
+  { min:1, max:1, depth:-1, torches:-2, lines:[
+    'woke what sleeps on this level. Two torches lost in the running',
+    'stepped on the wrong flagstone. The floor answered, and it cost them dearly',
+    'dropped the lantern down the shaft and fled by what light was left'
+  ]}
+];
+
+// Unbiased integer in [0,n) from the platform CSPRNG — the same fairness the
+// workflow gets from node:crypto.
+function rint(n) {
+  var a = new Uint32Array(1), lim = Math.floor(4294967296 / n) * n, v;
+  do { crypto.getRandomValues(a); v = a[0]; } while (v >= lim);
+  return v % n;
+}
+function band(roll) {
+  for (var i = 0; i < TABLE.length; i++) if (roll >= TABLE[i].min && roll <= TABLE[i].max) return TABLE[i];
+}
+function pick(list) { return list[rint(list.length)]; }
+
+function advance(s, roll) {
+  var dungeon = Object.assign({}, s.dungeon);
+  var b = band(roll);
+  var depth = Math.max(0, s.depth + b.depth);
+  var torches = Math.min(MAX_TORCHES, s.torches + b.torches);
+  var text = pick(b.lines);
+  var outcome = roll === 20 ? 'crit' : roll === 1 ? 'fumble' : 'normal';
+  var rolls = s.rolls + 1;
+  var wins = s.wins, losses = s.losses, best = s.best, vault = s.vault.slice();
+
+  // At the entrance the party is resupplying: light is free and a bad roll just
+  // means they have not set off yet.
+  if (s.depth === 0) {
+    torches = MAX_TORCHES;
+    depth = Math.max(0, b.depth);
+    if (b.depth <= 0) {
+      text = 'checked the packs at the entrance and decided the hour was wrong';
+      outcome = 'normal';
+    }
+  }
+
+  if (depth >= dungeon.floor) {
+    wins += 1;
+    best = best === null ? rolls : Math.min(best, rolls);
+    vault = [{ relic: dungeon.relic, dungeon: dungeon.name, rolls: rolls }].concat(vault).slice(0, 8);
+    return {
+      outcome: 'win',
+      text: 'reached the floor of ' + dungeon.name + ' and came back up with ' + dungeon.relic,
+      state: {
+        dungeon: makeDungeon(dungeon.id + 1), depth: 0, torches: MAX_TORCHES, rolls: 0,
+        wins: wins, losses: losses, best: best, vault: vault, journal: s.journal
+      }
+    };
+  }
+
+  if (torches <= 0) {
+    losses += 1;
+    dungeon.attempts = dungeon.attempts + 1;
+    return {
+      outcome: 'loss',
+      text: text + ' — then the last torch went out, and ' + dungeon.name + ' kept its floor',
+      state: {
+        dungeon: dungeon, depth: 0, torches: MAX_TORCHES, rolls: 0,
+        wins: wins, losses: losses, best: best, vault: vault, journal: s.journal
+      }
+    };
+  }
+
+  return {
+    outcome: outcome, text: text,
+    state: {
+      dungeon: dungeon, depth: depth, torches: torches, rolls: rolls,
+      wins: wins, losses: losses, best: best, vault: vault, journal: s.journal
+    }
+  };
+}
+
+// ===========================================================================
+// The die. A real icosahedron: twelve vertices, twenty faces, projected and
+// lit every frame. It spins because it is actually spinning, not because a
+// sequence of pictures is being played back.
+// ===========================================================================
+
+var PHI = (1 + Math.sqrt(5)) / 2;
+
+function buildIcosahedron() {
+  var v = [], i;
+  [[0,1,PHI],[0,1,-PHI],[0,-1,PHI],[0,-1,-PHI],
+   [1,PHI,0],[1,-PHI,0],[-1,PHI,0],[-1,-PHI,0],
+   [PHI,0,1],[PHI,0,-1],[-PHI,0,1],[-PHI,0,-1]].forEach(function (p) {
+    var L = Math.hypot(p[0], p[1], p[2]);
+    v.push([p[0]/L, p[1]/L, p[2]/L]);
+  });
+
+  // An edge joins the two closest vertices; a face is any triple that is
+  // mutually an edge. Deriving it beats hand-copying twenty index triples.
+  var d2 = function (a, b) { var x=a[0]-b[0], y=a[1]-b[1], z=a[2]-b[2]; return x*x+y*y+z*z; };
+  var edge = Infinity;
+  for (i = 0; i < 12; i++) for (var j = i+1; j < 12; j++) edge = Math.min(edge, d2(v[i], v[j]));
+  var near = function (a, b) { return Math.abs(d2(v[a], v[b]) - edge) < 1e-6; };
+
+  var faces = [];
+  for (i = 0; i < 12; i++)
+    for (var j2 = i+1; j2 < 12; j2++)
+      for (var k = j2+1; k < 12; k++)
+        if (near(i,j2) && near(j2,k) && near(i,k)) faces.push([i,j2,k]);
+
+  faces.forEach(function (f) {
+    var a = v[f[0]], b = v[f[1]], c = v[f[2]];
+    var n = cross(sub(b,a), sub(c,a));
+    if (dot(n, a) < 0) { var t = f[1]; f[1] = f[2]; f[2] = t; }   // wind outward
+    f.c = [(a[0]+b[0]+c[0])/3, (a[1]+b[1]+c[1])/3, (a[2]+b[2]+c[2])/3];
+    var L = Math.hypot(f.c[0], f.c[1], f.c[2]);
+    f.n = [f.c[0]/L, f.c[1]/L, f.c[2]/L];
+  });
+
+  // Number them the way a real d20 is numbered: opposite faces sum to 21.
+  var n = 1;
+  faces.forEach(function (f, idx) {
+    if (f.num) return;
+    var opp = -1, bestd = Infinity;
+    faces.forEach(function (g, jdx) {
+      if (jdx === idx || g.num) return;
+      var d = d2n(g.n, [-f.n[0], -f.n[1], -f.n[2]]);
+      if (d < bestd) { bestd = d; opp = jdx; }
+    });
+    f.num = n; faces[opp].num = 21 - n; n++;
+  });
+
+  return { v: v, f: faces };
+}
+function sub(a,b){ return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; }
+function cross(a,b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+function dot(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
+function d2n(a,b){ var x=a[0]-b[0], y=a[1]-b[1], z=a[2]-b[2]; return x*x+y*y+z*z; }
+
+// --- quaternions -----------------------------------------------------------
+function qmul(a,b){
+  return [
+    a[3]*b[0] + a[0]*b[3] + a[1]*b[2] - a[2]*b[1],
+    a[3]*b[1] - a[0]*b[2] + a[1]*b[3] + a[2]*b[0],
+    a[3]*b[2] + a[0]*b[1] - a[1]*b[0] + a[2]*b[3],
+    a[3]*b[3] - a[0]*b[0] - a[1]*b[1] - a[2]*b[2]
+  ];
+}
+function qnorm(q){ var L = Math.hypot(q[0],q[1],q[2],q[3]) || 1; return [q[0]/L,q[1]/L,q[2]/L,q[3]/L]; }
+function qaxis(ax, ang){
+  var L = Math.hypot(ax[0],ax[1],ax[2]) || 1, s = Math.sin(ang/2);
+  return [ax[0]/L*s, ax[1]/L*s, ax[2]/L*s, Math.cos(ang/2)];
+}
+function qrot(q, p){
+  var x=q[0],y=q[1],z=q[2],w=q[3];
+  var ix =  w*p[0] + y*p[2] - z*p[1];
+  var iy =  w*p[1] + z*p[0] - x*p[2];
+  var iz =  w*p[2] + x*p[1] - y*p[0];
+  var iw = -x*p[0] - y*p[1] - z*p[2];
+  return [
+    ix*w + iw*-x + iy*-z - iz*-y,
+    iy*w + iw*-y + iz*-x - ix*-z,
+    iz*w + iw*-z + ix*-y - iy*-x
+  ];
+}
+function qslerp(a, b, t){
+  var d = a[0]*b[0]+a[1]*b[1]+a[2]*b[2]+a[3]*b[3];
+  if (d < 0) { b = [-b[0],-b[1],-b[2],-b[3]]; d = -d; }
+  if (d > 0.9995) return qnorm([a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t, a[3]+(b[3]-a[3])*t]);
+  var th = Math.acos(d), s = Math.sin(th);
+  var wa = Math.sin((1-t)*th)/s, wb = Math.sin(t*th)/s;
+  return [a[0]*wa+b[0]*wb, a[1]*wa+b[1]*wb, a[2]*wa+b[2]*wb, a[3]*wa+b[3]*wb];
+}
+// The rotation that carries vector a onto vector b.
+function qbetween(a, b){
+  var d = dot(a,b);
+  if (d > 0.999999) return [0,0,0,1];
+  if (d < -0.999999) {
+    var ax = Math.abs(a[0]) < 0.9 ? cross(a,[1,0,0]) : cross(a,[0,1,0]);
+    return qaxis(ax, Math.PI);
+  }
+  var c = cross(a,b);
+  return qnorm([c[0], c[1], c[2], 1 + d]);
+}
+
+// --- the renderer ----------------------------------------------------------
+
+var ICO = buildIcosahedron();
+var cv = document.getElementById('die');
+var ctx = cv.getContext('2d');
+var CAM = [0,0,1];
+var css = { w: 340, h: 340 };
+
+function fit() {
+  var box = cv.parentNode.getBoundingClientRect();
+  css.w = Math.max(240, Math.round(box.width));
+  css.h = Math.round(Math.min(360, Math.max(260, css.w)));
+  var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  cv.width = Math.round(css.w * dpr);
+  cv.height = Math.round(css.h * dpr);
+  cv.style.height = css.h + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+function theme() {
+  var s = getComputedStyle(document.documentElement);
+  return {
+    face: s.getPropertyValue('--panel').trim(),
+    edge: s.getPropertyValue('--blue').trim(),
+    ink:  s.getPropertyValue('--ink').trim(),
+    dim:  s.getPropertyValue('--ink-3').trim(),
+    light: matchMedia('(prefers-color-scheme: light)').matches
+  };
+}
+
+var LIGHT = (function(){ var l=[-0.35,-0.75,0.9], L=Math.hypot(l[0],l[1],l[2]); return [l[0]/L,l[1]/L,l[2]/L]; })();
+
+function draw(q, opts) {
+  opts = opts || {};
+  var T = theme();
+  var w = css.w, h = css.h;
+  var R = Math.min(w, h) * 0.345 * (opts.scale || 1);
+  var cx = w / 2, cy = h * 0.47;
+  var FOC = 5.2;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // the shadow it casts on the plate
+  var sh = ctx.createRadialGradient(cx, cy + R * 1.42, 0, cx, cy + R * 1.42, R * 1.15);
+  sh.addColorStop(0, T.light ? 'rgba(27,31,36,0.20)' : 'rgba(0,0,0,0.55)');
+  sh.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = sh;
+  ctx.save();
+  ctx.translate(cx, cy + R * 1.42);
+  ctx.scale(1, 0.24);
+  ctx.beginPath(); ctx.arc(0, 0, R * 1.15, 0, 6.2832); ctx.fill();
+  ctx.restore();
+
+  var pv = ICO.v.map(function (p) {
+    var r = qrot(q, p);
+    var k = FOC / (FOC - r[2]);
+    return { x: cx + r[0] * R * k, y: cy - r[1] * R * k, z: r[2] };
+  });
+
+  var vis = [];
+  ICO.f.forEach(function (f) {
+    var n = qrot(q, f.n);
+    var c = qrot(q, f.c);
+    // Cull against the line of sight, not the z axis. Under perspective the
+    // silhouette sits past n.z = 0, and culling at zero punches holes in it.
+    if (n[0] * c[0] + n[1] * c[1] + n[2] * (c[2] - FOC) >= 0) return;
+    vis.push({ f: f, n: n, z: c[2], c: c });
+  });
+  vis.sort(function (a, b) { return a.z - b.z; });  // painter's order
+
+  vis.forEach(function (o) {
+    var f = o.f, a = pv[f[0]], b = pv[f[1]], c = pv[f[2]];
+    var lam = Math.max(0, dot(o.n, LIGHT));
+    var facing = Math.max(0, o.n[2]);
+
+    var tone = T.light
+      ? Math.round(198 - lam * 50 + facing * 20)
+      : Math.round(30 + lam * 54 + facing * 16);
+    var tint = T.light
+      ? 'rgb(' + (tone - 16) + ',' + (tone - 7) + ',' + Math.min(255, tone + 6) + ')'
+      : 'rgb(' + tone + ',' + (tone + 6) + ',' + Math.min(255, tone + 20) + ')';
+
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.closePath();
+    ctx.fillStyle = tint;
+    ctx.fill();
+
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = T.edge;
+    ctx.globalAlpha = (T.light ? 0.26 : 0.16) + facing * 0.24;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // the number, sitting on the face and fading as the face turns away
+    if (facing > 0.12) {
+      var k = FOC / (FOC - o.c[2]);
+      var nx = cx + o.c[0] * R * k, ny = cy - o.c[1] * R * k;
+      var size = R * 0.30 * (0.62 + facing * 0.38);
+      ctx.font = '600 ' + size.toFixed(1) + 'px ' + 'ui-monospace,Menlo,Consolas,monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.globalAlpha = Math.min(1, (facing - 0.12) * 2.6);
+      ctx.fillStyle = (opts.mark && f.num === opts.mark) ? T.edge : T.ink;
+      ctx.fillText(String(f.num), nx, ny + size * 0.04);
+      ctx.globalAlpha = 1;
+    }
+  });
+
+  // the halo a 20 or a 1 earns
+  if (opts.halo) {
+    var g = ctx.createRadialGradient(cx, cy, R * 0.7, cx, cy, R * 1.9);
+    g.addColorStop(0, opts.halo + (T.light ? '2e' : '3a'));
+    g.addColorStop(1, opts.halo + '00');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  }
+}
+
+// --- motion ----------------------------------------------------------------
+
+var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var q = qnorm([0.22, 0.14, 0.05, 1]);
+var w = [0.22, 0.34, 0.12];       // angular velocity, rad/s
+var rolling = false, settling = null, haloUntil = 0, halo = null, mark = 0;
+var bounce = 0, last = performance.now();
+
+function frame(now) {
+  var dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+
+  if (settling) {
+    var t = Math.min(1, (now - settling.t0) / settling.dur);
+    var e = 1 - Math.pow(1 - t, 3);
+    // Keep integrating the free spin and blend it into the landing, so it
+    // slows into the face instead of snapping to it.
+    settling.free = spin(settling.free, dt, 0.90);
+    q = qslerp(settling.free, settling.target, e);
+    if (t >= 1) {
+      q = settling.target;
+      bounce = 1;
+      finish(settling.roll);
+      settling = null;
+      w = [0.10, 0.16, 0.06];
+    }
+  } else {
+    q = spin(q, dt, rolling ? 1 : 1);
+  }
+
+  if (bounce > 0) bounce = Math.max(0, bounce - dt * 3.4);
+  var scale = 1 + Math.sin(bounce * Math.PI) * 0.055;
+
+  draw(q, {
+    scale: scale,
+    halo: now < haloUntil ? halo : null,
+    mark: now < haloUntil + 1400 ? mark : 0
+  });
+  requestAnimationFrame(frame);
+}
+
+function spin(qq, dt, damp) {
+  var sp = Math.hypot(w[0], w[1], w[2]);
+  if (sp > 1e-5) qq = qnorm(qmul(qaxis(w, sp * dt), qq));
+  if (damp !== 1) { w = [w[0]*Math.pow(damp,dt*60), w[1]*Math.pow(damp,dt*60), w[2]*Math.pow(damp,dt*60)]; }
+  else {
+    // idle drift: bleed back toward a slow tumble rather than stopping dead
+    var target = 0.30;
+    if (sp > target) { var f = Math.pow(0.985, dt*60); w = [w[0]*f, w[1]*f, w[2]*f]; }
+  }
+  return qq;
+}
+
+// The face whose number is n, oriented to look straight at the camera.
+function faceUp(n) {
+  var f = null;
+  ICO.f.forEach(function (g) { if (g.num === n) f = g; });
+  var base = qbetween(f.n, CAM);
+  var twist = qaxis(CAM, (rint(1000) / 1000) * Math.PI * 2);
+  return qnorm(qmul(twist, base));
+}
+
+function throwDie(extra) {
+  if (settling) return;
+  var n = 1 + rint(20);
+  hint.classList.add('gone');
+
+  if (REDUCED) {
+    q = faceUp(n);
+    bounce = 1;
+    finish(n);
+    return;
+  }
+
+  var ax = [rint(200)/100 - 1, rint(200)/100 - 1, rint(200)/100 - 1];
+  var speed = 13 + rint(700) / 100 + (extra || 0);
+  var L = Math.hypot(ax[0], ax[1], ax[2]) || 1;
+  w = [ax[0]/L*speed, ax[1]/L*speed, ax[2]/L*speed];
+
+  settling = { t0: performance.now(), dur: 1450, free: q, target: faceUp(n), roll: n };
+}
+
+// --- drag: you are turning the actual die ---------------------------------
+
+var drag = null, hint = document.getElementById('hint');
+
+cv.addEventListener('pointerdown', function (e) {
+  if (settling) return;
+  cv.setPointerCapture(e.pointerId);
+  cv.classList.add('dragging');
+  drag = { x: e.clientX, y: e.clientY, t: performance.now(), vx: 0, vy: 0, moved: 0 };
+  w = [0, 0, 0];
+});
+
+cv.addEventListener('pointermove', function (e) {
+  if (!drag) return;
+  var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  var now = performance.now(), dt = Math.max(8, now - drag.t) / 1000;
+  drag.moved += Math.abs(dx) + Math.abs(dy);
+  var k = 0.011;
+  q = qnorm(qmul(qmul(qaxis([0,1,0], dx * k), qaxis([1,0,0], dy * k)), q));
+  drag.vx = dx / dt; drag.vy = dy / dt;
+  drag.x = e.clientX; drag.y = e.clientY; drag.t = now;
+  hint.classList.add('gone');
+});
+
+function release(e) {
+  if (!drag) return;
+  cv.classList.remove('dragging');
+  var flung = Math.hypot(drag.vx, drag.vy);
+  var tap = drag.moved < 6;
+  drag = null;
+  if (tap || flung > 140) throwDie(Math.min(9, flung / 190));
+  else w = [0.18, 0.26, 0.10];     // a nudge that did not commit: drift on
+}
+cv.addEventListener('pointerup', release);
+cv.addEventListener('pointercancel', release);
+
+cv.setAttribute('tabindex', '0');
+cv.addEventListener('keydown', function (e) {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); throwDie(); }
+});
+
+// ===========================================================================
+// The panel
+// ===========================================================================
+
+var KEY = 'descent-v1';
+var S = load();
+
+function load() {
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var p = JSON.parse(raw);
+      if (p && p.dungeon && typeof p.depth === 'number') return p;
+    }
+  } catch (err) { /* private window, blocked storage: just start fresh */ }
+  return freshState();
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (err) { /* nothing to do */ }
+}
+
+var $ = function (id) { return document.getElementById(id); };
+
+function paint() {
+  $('dname').textContent = S.dungeon.name;
+  $('dsub').innerHTML = 'Somewhere on level ' + S.dungeon.floor + ' lies <em>' +
+    escapeHtml(S.dungeon.relic) + '</em>.' +
+    (S.dungeon.attempts ? ' ' + S.dungeon.attempts + ' expedition' +
+      (S.dungeon.attempts === 1 ? ' has' : 's have') + ' already failed here.' : '');
+
+  var lv = $('levels');
+  lv.textContent = '';
+  for (var i = 1; i <= S.dungeon.floor; i++) {
+    var d = document.createElement('div');
+    d.className = 'lvl' + (i < S.depth ? ' done' : '') + (i === S.depth ? ' here' : '') +
+                  (i === S.dungeon.floor ? ' floor' : '');
+    lv.appendChild(d);
+  }
+  lv.setAttribute('aria-label', 'Level ' + S.depth + ' of ' + S.dungeon.floor);
+
+  $('depth').textContent = S.depth === 0 ? 'at the entrance' : 'level ' + S.depth + ' of ' + S.dungeon.floor;
+  var t = '';
+  for (var j = 0; j < MAX_TORCHES; j++) {
+    t += j < S.torches ? '<span>▲</span>' : '<span class="out">▲</span>';
+  }
+  $('torches').innerHTML = t + ' <span class="n">' + S.torches + '/' + MAX_TORCHES + '</span>';
+
+  $('wins').textContent = S.wins;
+  $('losses').textContent = S.losses;
+  $('bestwrap').hidden = S.best === null;
+  $('best').textContent = S.best === null ? '—' : S.best;
+
+  var jl = $('journal');
+  jl.textContent = '';
+  S.journal.slice(0, 4).forEach(function (e) {
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="n">' + e.roll + '</span> · ' + escapeHtml(e.text);
+    jl.appendChild(li);
+  });
+
+  $('vcount').textContent = S.vault.length;
+  var vu = $('vault');
+  vu.textContent = '';
+  if (!S.vault.length) {
+    vu.innerHTML = '<li>Empty. Nothing has been brought back yet.</li>';
+  } else {
+    S.vault.forEach(function (v) {
+      var li = document.createElement('li');
+      li.innerHTML = '<b>' + escapeHtml(v.relic) + '</b> — ' + escapeHtml(v.dungeon) +
+                     ', in ' + v.rolls + ' roll' + (v.rolls === 1 ? '' : 's');
+      vu.appendChild(li);
+    });
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+
+function finish(n) {
+  var before = S.dungeon;
+  var r = advance(S, n);
+  S = r.state;
+  S.journal = [{ roll: n, text: r.text }].concat(S.journal).slice(0, 8);
+  save();
+
+  var head, body;
+  if (r.outcome === 'win') {
+    head = 'You rolled <b>' + n + '</b> — and that was the one.';
+    body = 'They came back up with ' + escapeHtml(before.relic) + '. It is in your vault now. A new dungeon has opened: <b>' +
+           escapeHtml(S.dungeon.name) + '</b>, and its floor lies on level ' + S.dungeon.floor + '.';
+  } else if (r.outcome === 'loss') {
+    head = 'You rolled <b>' + n + '</b>, and the light ran out.';
+    body = 'The party climbed back out empty-handed. ' + escapeHtml(before.name) +
+           ' keeps its floor. They will go again.';
+  } else {
+    head = r.outcome === 'crit' ? 'A natural <b>20</b>.'
+         : r.outcome === 'fumble' ? 'A <b>1</b>.'
+         : 'You rolled <b>' + n + '</b>.';
+    body = 'The party ' + escapeHtml(r.text) + '. ' +
+           (S.depth === 0
+             ? 'They are still at the entrance, ' + S.torches + ' torches lit.'
+             : 'They are ' + (S.dungeon.floor - S.depth) + ' level' +
+               (S.dungeon.floor - S.depth === 1 ? '' : 's') + ' short of the floor, with ' +
+               S.torches + ' torch' + (S.torches === 1 ? '' : 'es') + ' still burning.');
+  }
+
+  var v = $('verdict');
+  v.className = 'verdict ' + r.outcome;
+  v.innerHTML = '<p class="head">' + head + '</p><p>' + body + '</p>';
+  $('live').textContent = 'Rolled ' + n + '. ' + v.textContent;
+
+  mark = n;
+  if (r.outcome === 'win' || n === 20) { halo = '#3fb950'; haloUntil = performance.now() + 1500; }
+  else if (r.outcome === 'loss' || n === 1) { halo = '#f85149'; haloUntil = performance.now() + 1500; }
+  else { halo = '#58a6ff'; haloUntil = performance.now() + 900; }
+
+  paint();
+}
+
+$('reset').addEventListener('click', function () {
+  if (!confirm('Abandon this run and start a new one?')) return;
+  S = freshState();
+  save();
+  paint();
+  var v = $('verdict');
+  v.className = 'verdict';
+  v.innerHTML = '<p class="head">A new party, a new tunnel.</p><p>Nothing thrown yet.</p>';
+});
+
+// The public descent on the profile, read straight from the repository. It is
+// a different run with different stakes: that one is everybody's.
+(function shared() {
+  var el = $('shared');
+  var url = 'https://raw.githubusercontent.com/Davi-Tlr/Davi-Tlr/main/.github/chronicle.json';
+  var issue = 'https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20';
+  fetch(url, { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(function (c) {
+    el.innerHTML = '<span class="dot">the public chronicle ·</span> ' +
+      escapeHtml(c.dungeon.name) + ', level ' + c.depth + ' of ' + c.dungeon.floor +
+      ' · ' + c.wins + 'W ' + c.losses + 'L · <a href="' + issue + '">roll on it</a>';
+  }).catch(function () {
+    el.innerHTML = '<span class="dot">the public chronicle ·</span> <a href="' + issue + '">roll on it</a>';
+  });
+})();
+
+// ---------------------------------------------------------------------------
+
+window.addEventListener('resize', fit);
+matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () { /* redrawn next frame */ });
+
+fit();
+paint();
+requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

@@ -44,9 +44,12 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}
         run: |
+          # `gh issue close` has no --body-file; only `gh issue comment` does.
+          # Comment first, then close, so the reply survives either way.
           if [ -f .github/roll-reply.md ]; then
-            gh issue close "$NUMBER" --repo "$REPO" --body-file .github/roll-reply.md
+            gh issue comment "$NUMBER" --repo "$REPO" --body-file .github/roll-reply.md
           else
-            gh issue close "$NUMBER" --repo "$REPO" \
-              --comment "The roll was not accepted — the title has to be exactly \`roll:d20\`."
+            gh issue comment "$NUMBER" --repo "$REPO" \
+              --body "That roll was not accepted — the issue title has to be exactly \`roll:d20\`."
           fi
+          gh issue close "$NUMBER" --repo "$REPO"

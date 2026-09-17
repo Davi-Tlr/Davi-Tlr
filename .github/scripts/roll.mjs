@@ -119,12 +119,12 @@ const standing = state.depth === 0
 const block = `${START_MARK}
 <table>
 <tr>
-<td width="42%" valign="top">
+<td width="42%" valign="middle">
 
 <img src="./assets/descent.svg" width="100%" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
 
 </td>
-<td width="58%" valign="top">
+<td width="58%" valign="middle">
 
 ### ${esc(state.dungeon.name)}
 
@@ -135,6 +135,9 @@ A high roll takes them deeper. A low one costs light. When the last torch
 goes out they climb back up empty-handed, and the dungeon keeps what it has.
 
 **${die(20)}** — one click, then press *Create*. That is the whole game.
+
+Or [throw one yourself →](https://davi-tlr.github.io/Davi-Tlr/) — a real die, in the
+browser, no issue and no waiting. That run is yours alone; this one is everybody's.
 
 <sub>**${state.wins}** recovered &nbsp;·&nbsp; **${state.losses}** lost${state.best !== null ? ` &nbsp;·&nbsp; fastest descent: **${state.best}** rolls` : ''}</sub>
 

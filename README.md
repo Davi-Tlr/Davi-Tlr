@@ -24,12 +24,12 @@ flight planner. I run an RPG table, so I built the room it meets in.
 
 <table>
 <tr>
-<td width="30%" valign="top">
+<td width="30%" valign="middle">
 
 <img src="./assets/navgate.gif" width="100%" alt="NavGate: airfield search, METAR/TAF, route planning and aeronautical charts" />
 
 </td>
-<td width="70%" valign="top">
+<td width="70%" valign="middle">
 
 ### [NavGate](https://github.com/Davi-Tlr/NavGate)
 
@@ -60,7 +60,7 @@ still answer with the phone in airplane mode.
 
 <table>
 <tr>
-<td width="55%" valign="top">
+<td width="55%" valign="middle">
 
 ### [Mazestream](https://github.com/Davi-Tlr/Mazestream)
 
@@ -76,7 +76,7 @@ Runs on localhost or on your own box behind Docker Compose.
 <sub><i>the green is my friend's editor theme, not the app. I have raised it with him.</i></sub>
 
 </td>
-<td width="45%" valign="top">
+<td width="45%" valign="middle">
 
 <img src="./assets/mazestream.gif" width="100%" alt="A live Mazestream room with two screens on stage" />
 
@@ -123,12 +123,12 @@ taught me more about edge cases than any tutorial ever did.
 
 <table>
 <tr>
-<td width="38%" valign="top">
+<td width="38%" valign="middle">
 
 <img src="./Baldurs-Gate-II.gif" width="100%" alt="Baldur's Gate II" />
 
 </td>
-<td width="62%" valign="top">
+<td width="62%" valign="middle">
 
 ### The table
 
@@ -143,34 +143,42 @@ can't show here.
 </table>
 
 <!-- DICE:START -->
-<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: level 3 of 4" />
+<table>
+<tr>
+<td width="42%" valign="middle">
 
-### The Forgotten Cistern of the Quiet King
+<img src="./assets/descent.svg" width="100%" alt="The Forgotten Gaol of Ash: level 1 of 9" />
 
-**The floor lies on level 4.** The party is on level 3 with
-1 torch lit. Reach the floor and the relic comes up with
-them; let the last torch go out and the dungeon keeps it.
+</td>
+<td width="58%" valign="middle">
 
-Roll a d20 to move them — it opens a pre-filled issue, just press **Create**.
-High takes them deeper, low costs light.
+### The Forgotten Gaol of Ash
 
-**[d20](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.)** &nbsp;·&nbsp; won 0 · lost 0
+Somewhere on level 9 lies **the name of something that would rather keep it**.
+They are 8 levels short of it, with 3 torches still burning.
 
-<p align="center">
-  <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.">
-    <img src="./assets/last-roll.svg" width="240" alt="Latest d20 roll" />
-  </a>
-</p>
+A high roll takes them deeper. A low one costs light. When the last torch
+goes out they climb back up empty-handed, and the dungeon keeps what it has.
+
+**[d20](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=The%20party%20is%20waiting%20at%20the%20mouth%20of%20the%20tunnel.%0A%0APress%20**Create**%20below%20and%20the%20die%20is%20cast%20%E2%80%94%20a%20workflow%20rolls%20it%2C%20moves%20them%2C%0Aand%20closes%20this%20issue.%20Nothing%20else%20is%20asked%20of%20you.%0A)** — one click, then press *Create*. That is the whole game.
+
+Or [throw one yourself →](https://davi-tlr.github.io/Davi-Tlr/) — a real die, in the
+browser, no issue and no waiting. That run is yours alone; this one is everybody's.
+
+<sub>**1** recovered &nbsp;·&nbsp; **0** lost &nbsp;·&nbsp; fastest descent: **4** rolls</sub>
 
 <details>
-<summary>the vault &nbsp;·&nbsp; 0 recovered</summary>
+<summary>the vault &nbsp;·&nbsp; 1 recovered</summary>
 <br>
-<sub>Empty. Nothing has been brought back yet.</sub>
+<sub><b>a ledger of debts nobody remembers owing</b> — The Forgotten Cistern of the Quiet King, by <a href="https://github.com/Davi-Tlr">@Davi-Tlr</a> in 4 rolls</sub>
 </details>
 
-<sub>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back<br>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
+</td>
+</tr>
+</table>
 
-<br clear="both" />
+<sub>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) took the long corridor. Something breathed at the far end of it<br>`d20` **17** · [@Davi-Tlr](https://github.com/Davi-Tlr) reached the floor of The Forgotten Cistern of the Quiet King and came back up with a ledger of debts nobody remembers owing<br>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back</sub>
+
 <!-- DICE:END -->
 
 <p align="center">
