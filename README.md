@@ -4,8 +4,10 @@
 
 <img align="right" width="130" src="./eu.png" alt="Davi Lucas" />
 
-I write parsers for a living: the kind that turn Brazilian
-regulatory filings into something a person can actually read.
+Nothing off the shelf fits, so I build it: the data model, the screen the
+team actually uses, and the server it runs on. At work that means internal
+applications, legacy systems that have to keep talking, and work that was
+being done by hand.
 
 Everything else here follows the same rule: I fly, so I built a
 flight planner. I run an RPG table, so I built the room it meets in.
@@ -22,28 +24,33 @@ flight planner. I run an RPG table, so I built the room it meets in.
 
 <table>
 <tr>
-<td width="30%" valign="middle">
+<td width="36%" valign="middle">
 
 <img src="./assets/navgate.gif" width="100%" alt="NavGate: airfield search, METAR/TAF, route planning and aeronautical charts" />
 
 </td>
-<td width="70%" valign="middle">
+<td width="64%" valign="middle">
 
 ## [NavGate](https://github.com/Davi-Tlr/NavGate)
 
 **A VFR flight planner for Brazilian pilots, on Android.**
 
 The paid ones charge in dollars and are built for someone else's airspace.
-This one pulls aeronautical charts from DECEA's WMS, METAR and TAF off the
-NOAA feed, solves route legs by Haversine, draws the terrain profile under
-the track, and keeps 4,609 Brazilian airfields in local SQLite, so search
-still answers with the phone in airplane mode.
+This one pulls charts from DECEA's WMS, METAR and TAF off the NOAA feed,
+solves route legs by Haversine, draws the terrain profile under the track,
+and keeps 4,609 Brazilian airfields in local SQLite, so search still answers
+with the phone in airplane mode. Six public services, no backend of my own,
+so it costs nothing to keep running.
+
+The 46 WAC charts used to fail silently in a single WMS request. It was an
+undocumented URL limit on DECEA's server; splitting them into five sources
+by region fixed it.
 
 <img src="./assets/stack-navgate.svg" width="486" alt="React Native, TypeScript, Expo, MapLibre, SQLite" />
 
 <p><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/metar-taf.jpg" alt="METAR and TAF" /><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/calculadora.jpeg" alt="Flight calculation" /><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/cartas-satelite.jpeg" alt="Charts over satellite" /><img width="24%" src="https://raw.githubusercontent.com/Davi-Tlr/NavGate/main/assets/screenshots/gps.jpeg" alt="GPS position" /></p>
 
-<sub><i>Built as a university extension project at Estácio de Sá.</i></sub>
+<sub><i>Built as a university extension project at Estácio de Sá. A student pilot has used it in a real pre-flight briefing.</i></sub>
 
 </td>
 </tr>
@@ -70,7 +77,7 @@ commit they were built from. CI runs on Windows and Linux.
 
 <img src="./assets/stack-mazestream.svg" width="419" alt="React, LiveKit, WebRTC, Docker, Node.js" />
 
-<sub><i>That green is the editor theme of whoever was on screen. It's hideous, and it's not the app.</i></sub>
+<sub><i>Built in a pair, integrated by pull request; the LiveKit server, the packaging and the releases are mine. That green is the editor theme of whoever was on screen, and it is not the app.</i></sub>
 
 </td>
 <td width="45%" valign="middle">
@@ -83,20 +90,50 @@ commit they were built from. CI runs on Windows and Linux.
 
 <!-- ─────────────  Day job  ───────────── -->
 
+<table>
+<tr>
+<td width="46%" valign="middle">
+
+```
+Hub GEFID    internal portal, every layer
+             mine, DB2 integrations included
+
+CBIOS        50 spreadsheets, two sectors,
+             one ingestion, no code changes
+
+3270         200+ unlocks, one at a time
+             before
+
+CETIP        198 registers, 40% duplicates,
+             3h to under 1h
+
+server       none for the interns; I asked
+             for it, set it up, and run it
+```
+
+<img src="./assets/stack-dayjob.svg" width="396" alt="Python, Flask, pandas, SQLite, Linux" />
+
+</td>
+<td width="54%" valign="middle">
+
 ## The day job
 
-Brazilian financial and regulatory data arrives as PDFs, fixed-width text
-and XML that was never meant to be read twice. I write the Python that
-reads it anyway: parsers, reconciliation, and the automation that keeps
-an analyst from doing it by hand.
+I am a software development intern at Banco do Brasil, one of the largest
+banks in the country. It runs on four tracks: the applications the area
+works in, the legacy systems they have to keep talking to, the processes
+that were still being done by hand, and the machine all of it sits on.
 
-A filing lands as a 200-page PDF with tables that span pages, or as a
-fixed-width file where column 47 means something different depending on
-what column 12 said. The job is never the happy path. It's the footnote
-that shifts every row below it, the encoding that changes mid-file, the
-total that doesn't reconcile because one record was amended six months later.
+The two applications are the part I like most. A dashboard follows
+decarbonization credits from issue to retirement, and its ingestion matches
+fields by alias, so fifty spreadsheets from two different sectors land
+without anyone touching the code. An internal portal on Flask and DB2
+gathers the area's tools, and I drew the model and the architecture for it.
 
 <sub><i>Most of it lives in private repositories.</i></sub>
+
+</td>
+</tr>
+</table>
 
 <br>
 
