@@ -6,9 +6,10 @@
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
 
-const W = 380, H = 330;
-const ROWS = 6;
+const W = 380, H = 400;
+const ROWS = 8;
 const TOP = 74, ROW_H = 22;
+const AFTER = TOP + ROWS * ROW_H;   // where the shaft ends and the caption starts
 
 function wrap(text, cols, max) {
   const out = [];
@@ -65,7 +66,7 @@ export function renderScene(state) {
 
   // If the floor sits below the visible window, say how far it still is.
   const hint = floor > first + ROWS - 1
-    ? `<text x="${W / 2}" y="${TOP + ROWS * ROW_H + 6}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681">↓ ${floor - depth} more level${floor - depth === 1 ? '' : 's'} to the floor</text>`
+    ? `<text x="${W / 2}" y="${AFTER + 6}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681">↓ ${floor - depth} more level${floor - depth === 1 ? '' : 's'} to the floor</text>`
     : '';
 
   const py = TOP + party * ROW_H + 6;
@@ -101,11 +102,11 @@ export function renderScene(state) {
   if (name !== dungeon.name) name = name.replace(/[ ,.]+$/, '') + '…';
   const lines = wrap(entry?.text ?? 'the expedition waits for its first roll', 42, 3);
   const journal = lines.map((l, i) =>
-    `<text x="${W / 2}" y="${244 + i * 13.5}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8b949e">${esc(l)}</text>`
+    `<text x="${W / 2}" y="${AFTER + 42 + i * 13.5}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8b949e">${esc(l)}</text>`
   ).join('\n  ');
 
   const who = entry?.actor
-    ? `<text x="${W / 2}" y="${228}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="${lit}">@${esc(entry.actor)} rolled ${entry.roll}</text>`
+    ? `<text x="${W / 2}" y="${AFTER + 26}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="${lit}">@${esc(entry.actor)} rolled ${entry.roll}</text>`
     : '';
 
   const score = `${wins}W · ${losses}L${best !== null ? ` · best ${best}` : ''}`;

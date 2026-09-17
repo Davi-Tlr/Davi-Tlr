@@ -160,10 +160,12 @@ They are 8 levels short of it, with 3 torches still burning.
 A high roll takes them deeper. A low one costs light. When the last torch
 goes out they climb back up empty-handed, and the dungeon keeps what it has.
 
-**[d20](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=The%20party%20is%20waiting%20at%20the%20mouth%20of%20the%20tunnel.%0A%0APress%20**Create**%20below%20and%20the%20die%20is%20cast%20%E2%80%94%20a%20workflow%20rolls%20it%2C%20moves%20them%2C%0Aand%20closes%20this%20issue.%20Nothing%20else%20is%20asked%20of%20you.%0A)** — one click, then press *Create*. That is the whole game.
+<p align="center">
+  <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=The%20party%20is%20waiting%20at%20the%20mouth%20of%20the%20tunnel.%0A%0APress%20**Create**%20below%20and%20the%20die%20is%20cast%20%E2%80%94%20a%20workflow%20rolls%20it%2C%20moves%20them%2C%0Aand%20closes%20this%20issue.%20Nothing%20else%20is%20asked%20of%20you.%0A"><img src="./assets/last-roll.svg" width="240" alt="A d20 showing 10, rolled by @Davi-Tlr" /></a>
+</p>
 
-Or [throw one yourself →](https://davi-tlr.github.io/Davi-Tlr/) — a real die, in the
-browser, no issue and no waiting. That run is yours alone; this one is everybody's.
+**[Roll it](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=The%20party%20is%20waiting%20at%20the%20mouth%20of%20the%20tunnel.%0A%0APress%20**Create**%20below%20and%20the%20die%20is%20cast%20%E2%80%94%20a%20workflow%20rolls%20it%2C%20moves%20them%2C%0Aand%20closes%20this%20issue.%20Nothing%20else%20is%20asked%20of%20you.%0A)** — one click, then press *Create*. That is the whole game.
+Or [throw one yourself →](https://davi-tlr.github.io/Davi-Tlr/), a real die in the browser, no issue and no waiting.
 
 <sub>**1** recovered &nbsp;·&nbsp; **0** lost &nbsp;·&nbsp; fastest descent: **4** rolls</sub>
 
