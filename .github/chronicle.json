@@ -6,14 +6,21 @@
     "relic": "a ledger of debts nobody remembers owing",
     "attempts": 0
   },
-  "depth": 2,
-  "torches": 2,
-  "rolls": 2,
+  "depth": 3,
+  "torches": 1,
+  "rolls": 3,
   "wins": 0,
   "losses": 0,
   "best": null,
   "vault": [],
   "journal": [
+    {
+      "actor": "Davi-Tlr",
+      "roll": 10,
+      "sides": 20,
+      "text": "went down through water that came to the knee, and lost a torch to it",
+      "at": "2026-09-17T00:20:00.607Z"
+    },
     {
       "actor": "Davi-Tlr",
       "roll": 4,
