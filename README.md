@@ -145,12 +145,12 @@ can't show here.
 <!-- DICE:START -->
 <table>
 <tr>
-<td width="42%" valign="middle">
+<td width="50%" valign="middle">
 
 <img src="./assets/descent.svg" width="100%" alt="The Forgotten Gaol of Ash: level 1 of 9" />
 
 </td>
-<td width="58%" valign="middle">
+<td width="50%" valign="middle">
 
 ### The Forgotten Gaol of Ash
 
