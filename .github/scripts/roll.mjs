@@ -119,12 +119,12 @@ const standing = state.depth === 0
 const block = `${START_MARK}
 <table>
 <tr>
-<td width="42%" valign="middle">
+<td width="50%" valign="middle">
 
 <img src="./assets/descent.svg" width="100%" alt="${esc(state.dungeon.name)}: level ${state.depth} of ${state.dungeon.floor}" />
 
 </td>
-<td width="58%" valign="middle">
+<td width="50%" valign="middle">
 
 ### ${esc(state.dungeon.name)}
 

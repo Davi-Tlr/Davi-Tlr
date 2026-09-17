@@ -52,20 +52,20 @@ export function renderScene(state) {
     rows += `\n    <rect x="${inset}" y="${y}" width="${W - inset * 2}" height="13" rx="2" fill="${isFloor ? '#2a2113' : '#20262f'}" opacity="${isFloor ? 0.95 : fade + 0.18}"/>`;
     if (isFloor) {
       rows += `\n    <rect x="${inset}" y="${y}" width="${W - inset * 2}" height="13" rx="2" fill="none" stroke="#d29922" stroke-width="1" stroke-dasharray="3 2" opacity="0.9"/>`;
-      rows += `\n    <text x="${W / 2}" y="${y + 10}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="8" fill="#e3b341" letter-spacing="1.2">THE FLOOR</text>`;
+      rows += `\n    <text x="${W / 2}" y="${y + 10}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#e3b341" letter-spacing="1.2">THE FLOOR</text>`;
     } else {
       rows += `\n    <line x1="${inset}" y1="${y + 14}" x2="${W - inset}" y2="${y + 14}" stroke="${lit}" stroke-width="0.7" opacity="${fade * 0.5}"/>`;
       if (level === 0) {
-        rows += `\n    <text x="${inset + 6}" y="${y + 10}" font-family="ui-monospace,Menlo,monospace" font-size="7.5" fill="#7d8590" letter-spacing="1">SURFACE</text>`;
+        rows += `\n    <text x="${inset + 6}" y="${y + 10}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7d8590" letter-spacing="1">SURFACE</text>`;
       } else if (dist <= 2) {
-        rows += `\n    <text x="${inset - 6}" y="${y + 10}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="8" fill="#6e7681" opacity="${1 - dist * 0.3}">${level}</text>`;
+        rows += `\n    <text x="${inset - 6}" y="${y + 10}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681" opacity="${1 - dist * 0.3}">${level}</text>`;
       }
     }
   }
 
   // If the floor sits below the visible window, say how far it still is.
   const hint = floor > first + ROWS - 1
-    ? `<text x="${W / 2}" y="${TOP + ROWS * ROW_H + 4}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="8" fill="#6e7681">↓ ${floor - depth} more level${floor - depth === 1 ? '' : 's'} to the floor</text>`
+    ? `<text x="${W / 2}" y="${TOP + ROWS * ROW_H + 6}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681">↓ ${floor - depth} more level${floor - depth === 1 ? '' : 's'} to the floor</text>`
     : '';
 
   const py = TOP + party * ROW_H + 6;
@@ -93,14 +93,19 @@ export function renderScene(state) {
       : `\n    <circle cx="${x}" cy="${FY - 2}" r="2" fill="#2a2f38"/>`;
   }
 
-  const name = wrap(dungeon.name, 43, 1)[0];
-  const lines = wrap(entry?.text ?? 'the expedition waits for its first roll', 50, 3);
+  // The name gets the whole top line now — the scoreboard moved to the foot,
+  // where it is not competing with it for width.
+  // wrap() breaks on a word boundary, so a name that does not fit comes back
+  // looking like a complete name. Say that it was cut.
+  let name = wrap(dungeon.name, 46, 1)[0];
+  if (name !== dungeon.name) name = name.replace(/[ ,.]+$/, '') + '…';
+  const lines = wrap(entry?.text ?? 'the expedition waits for its first roll', 42, 3);
   const journal = lines.map((l, i) =>
-    `<text x="${W / 2}" y="${246 + i * 11.5}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="8.5" fill="#8b949e">${esc(l)}</text>`
+    `<text x="${W / 2}" y="${244 + i * 13.5}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8b949e">${esc(l)}</text>`
   ).join('\n  ');
 
   const who = entry?.actor
-    ? `<text x="${W / 2}" y="${232}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="${lit}">@${esc(entry.actor)} rolled ${entry.roll}</text>`
+    ? `<text x="${W / 2}" y="${228}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="${lit}">@${esc(entry.actor)} rolled ${entry.roll}</text>`
     : '';
 
   const score = `${wins}W · ${losses}L${best !== null ? ` · best ${best}` : ''}`;
@@ -118,9 +123,8 @@ export function renderScene(state) {
 
   <rect width="${W}" height="${H}" rx="10" fill="url(#deep)" stroke="#262d38" stroke-width="1.5"/>
 
-  <text x="20" y="26" font-family="ui-monospace,Menlo,monospace" font-size="9.5" font-weight="600" fill="#e6edf3">${esc(name)}</text>
-  <text x="20" y="40" font-family="ui-monospace,Menlo,monospace" font-size="8" fill="#6e7681">the floor lies on level ${floor}${dungeon.attempts ? ` · ${dungeon.attempts} failed attempt${dungeon.attempts === 1 ? '' : 's'}` : ''}</text>
-  <text x="${W - 20}" y="26" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#6e7681">${score}</text>
+  <text x="20" y="28" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="600" fill="#e6edf3">${esc(name)}</text>
+  <text x="20" y="42" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681">the floor lies on level ${floor}${dungeon.attempts ? ` · ${dungeon.attempts} failed attempt${dungeon.attempts === 1 ? '' : 's'}` : ''}</text>
 ${bar}
 ${rows}
   ${hint}
@@ -132,8 +136,9 @@ ${rows}
     <animate attributeName="opacity" values="0.75;1;0.75" dur="2.2s" repeatCount="indefinite"/>
   </circle>
 
-  <text x="20" y="${H - 22}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#6e7681">level <tspan fill="#e6edf3" font-size="12" font-weight="600">${depth}</tspan> / ${floor}</text>
-  <text x="${W - 20}" y="${H - 34}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="8" fill="#6e7681">torches</text>
+  <text x="20" y="${H - 34}" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681">${score}</text>
+  <text x="20" y="${H - 16}" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#6e7681">level <tspan fill="#e6edf3" font-size="15" font-weight="600">${depth}</tspan> / ${floor}</text>
+  <text x="${W - 20}" y="${H - 34}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#6e7681">torches</text>
 ${torchRow}
 
   ${who}
