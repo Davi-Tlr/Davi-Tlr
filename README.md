@@ -124,7 +124,7 @@ can't show here.
 ### The Forgotten Cistern of the Quiet King
 
 **The floor lies on level 4.** The party is on level 2 with
-3 torches lit. Reach the floor and the relic comes up with
+2 torches lit. Reach the floor and the relic comes up with
 them; let the last torch go out and the dungeon keeps it.
 
 Roll a d20 to move them — it opens a pre-filled issue, just press **Create**.
@@ -144,7 +144,7 @@ High takes them deeper, low costs light.
 <sub>Empty. Nothing has been brought back yet.</sub>
 </details>
 
-<sub>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
+<sub>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back<br>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
 
 <br clear="both" />
 <!-- DICE:END -->

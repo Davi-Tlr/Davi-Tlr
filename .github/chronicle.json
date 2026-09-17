@@ -7,13 +7,20 @@
     "attempts": 0
   },
   "depth": 2,
-  "torches": 3,
-  "rolls": 1,
+  "torches": 2,
+  "rolls": 2,
   "wins": 0,
   "losses": 0,
   "best": null,
   "vault": [],
   "journal": [
+    {
+      "actor": "Davi-Tlr",
+      "roll": 4,
+      "sides": 20,
+      "text": "retreated up a level with something following, and did not look back",
+      "at": "2026-09-17T00:19:04.449Z"
+    },
     {
       "actor": "Davi-Tlr",
       "roll": 15,
