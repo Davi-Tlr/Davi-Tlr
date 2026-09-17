@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 165" width="240" height="165" role="img" aria-label="d20 rolled 10 by Davi-Tlr">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 165" width="240" height="165" role="img" aria-label="d20 rolled 17 by Davi-Tlr">
   <defs>
     <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#161b22"/><stop offset="100%" stop-color="#0d1117"/>
@@ -29,18 +29,18 @@
       <polygon points="0,-31 27.5,17 -27.5,17" fill="#1c2534" stroke="#58a6ff" stroke-width="1.4" stroke-opacity="0.9" stroke-linejoin="round"/>
     </g>
     <g>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">4<set attributeName="opacity" to="1" begin="0.000s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">7<set attributeName="opacity" to="1" begin="0.077s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">9<set attributeName="opacity" to="1" begin="0.155s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">13<set attributeName="opacity" to="1" begin="0.232s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">2<set attributeName="opacity" to="1" begin="0.309s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">15<set attributeName="opacity" to="1" begin="0.386s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">10<set attributeName="opacity" to="1" begin="0.464s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">2<set attributeName="opacity" to="1" begin="0.541s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">10<set attributeName="opacity" to="1" begin="0.000s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">5<set attributeName="opacity" to="1" begin="0.077s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">16<set attributeName="opacity" to="1" begin="0.155s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">16<set attributeName="opacity" to="1" begin="0.232s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">20<set attributeName="opacity" to="1" begin="0.309s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">8<set attributeName="opacity" to="1" begin="0.386s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">2<set attributeName="opacity" to="1" begin="0.464s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">10<set attributeName="opacity" to="1" begin="0.541s" dur="0.077s"/></text>
       <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">18<set attributeName="opacity" to="1" begin="0.618s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">17<set attributeName="opacity" to="1" begin="0.695s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#8b949e" opacity="0">14<set attributeName="opacity" to="1" begin="0.773s" dur="0.077s"/></text>
-      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#e6edf3" opacity="0">10<set attributeName="opacity" to="1" begin="0.85s" fill="freeze"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">6<set attributeName="opacity" to="1" begin="0.695s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="36" font-weight="600" fill="#8b949e" opacity="0">2<set attributeName="opacity" to="1" begin="0.773s" dur="0.077s"/></text>
+      <text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="32" font-weight="600" fill="#e6edf3" opacity="0">17<set attributeName="opacity" to="1" begin="0.85s" fill="freeze"/></text>
     </g>
   </g>
 

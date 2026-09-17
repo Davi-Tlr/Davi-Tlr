@@ -1,19 +1,33 @@
 {
   "dungeon": {
-    "id": 1,
-    "name": "The Forgotten Cistern of the Quiet King",
-    "floor": 4,
-    "relic": "a ledger of debts nobody remembers owing",
+    "id": 2,
+    "name": "The Forgotten Gaol of Ash",
+    "floor": 9,
+    "relic": "the name of something that would rather keep it",
     "attempts": 0
   },
-  "depth": 3,
-  "torches": 1,
-  "rolls": 3,
-  "wins": 0,
+  "depth": 0,
+  "torches": 3,
+  "rolls": 0,
+  "wins": 1,
   "losses": 0,
-  "best": null,
-  "vault": [],
+  "best": 4,
+  "vault": [
+    {
+      "relic": "a ledger of debts nobody remembers owing",
+      "dungeon": "The Forgotten Cistern of the Quiet King",
+      "actor": "Davi-Tlr",
+      "rolls": 4
+    }
+  ],
   "journal": [
+    {
+      "actor": "Davi-Tlr",
+      "roll": 17,
+      "sides": 20,
+      "text": "reached the floor of The Forgotten Cistern of the Quiet King and came back up with a ledger of debts nobody remembers owing",
+      "at": "2026-09-17T00:48:29.301Z"
+    },
     {
       "actor": "Davi-Tlr",
       "roll": 10,

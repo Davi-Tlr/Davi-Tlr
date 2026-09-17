@@ -119,18 +119,18 @@ can't show here.
 <br clear="both" />
 
 <!-- DICE:START -->
-<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: level 3 of 4" />
+<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Gaol of Ash: level 0 of 9" />
 
-### The Forgotten Cistern of the Quiet King
+### The Forgotten Gaol of Ash
 
-**The floor lies on level 4.** The party is on level 3 with
-1 torch lit. Reach the floor and the relic comes up with
+**The floor lies on level 9.** The party is on level 0 with
+3 torches lit. Reach the floor and the relic comes up with
 them; let the last torch go out and the dungeon keeps it.
 
 Roll a d20 to move them — it opens a pre-filled issue, just press **Create**.
 High takes them deeper, low costs light.
 
-**[d20](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.)** &nbsp;·&nbsp; won 0 · lost 0
+**[d20](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.)** &nbsp;·&nbsp; won 1 · lost 0 · best 4 rolls
 
 <p align="center">
   <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.">
@@ -139,12 +139,12 @@ High takes them deeper, low costs light.
 </p>
 
 <details>
-<summary>the vault &nbsp;·&nbsp; 0 recovered</summary>
+<summary>the vault &nbsp;·&nbsp; 1 recovered</summary>
 <br>
-<sub>Empty. Nothing has been brought back yet.</sub>
+<sub>**a ledger of debts nobody remembers owing** — The Forgotten Cistern of the Quiet King, by [@Davi-Tlr](https://github.com/Davi-Tlr) in 4 rolls</sub>
 </details>
 
-<sub>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back<br>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
+<sub>`d20` **17** · [@Davi-Tlr](https://github.com/Davi-Tlr) reached the floor of The Forgotten Cistern of the Quiet King and came back up with a ledger of debts nobody remembers owing<br>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back<br>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
 
 <br clear="both" />
 <!-- DICE:END -->
