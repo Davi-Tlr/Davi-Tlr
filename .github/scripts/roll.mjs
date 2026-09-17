@@ -90,6 +90,12 @@ High takes them deeper, low costs light.
 
 **${die(20)}** &nbsp;·&nbsp; won ${state.wins} · lost ${state.losses}${state.best !== null ? ` · best ${state.best} rolls` : ''}
 
+<p align="center">
+  <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press+Create.">
+    <img src="./assets/last-roll.svg" width="240" alt="Latest d20 roll" />
+  </a>
+</p>
+
 <details>
 <summary>the vault &nbsp;·&nbsp; ${state.vault.length} recovered</summary>
 <br>
