@@ -1,0 +1,25 @@
+{
+  "dungeon": {
+    "id": 1,
+    "name": "The Forgotten Cistern of the Quiet King",
+    "floor": 4,
+    "relic": "a ledger of debts nobody remembers owing",
+    "attempts": 0
+  },
+  "depth": 2,
+  "torches": 3,
+  "rolls": 1,
+  "wins": 0,
+  "losses": 0,
+  "best": null,
+  "vault": [],
+  "journal": [
+    {
+      "actor": "Davi-Tlr",
+      "roll": 15,
+      "sides": 20,
+      "text": "crossed the bridge over the underground river without waking anything",
+      "at": "2026-09-17T00:18:50.530Z"
+    }
+  ]
+}

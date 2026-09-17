@@ -119,11 +119,11 @@ can't show here.
 <br clear="both" />
 
 <!-- DICE:START -->
-<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: the expedition has not set off" />
+<img align="left" width="42%" src="./assets/descent.svg" alt="The Forgotten Cistern of the Quiet King: level 2 of 4" />
 
 ### The Forgotten Cistern of the Quiet King
 
-**The floor lies on level 4.** The party is at the entrance with
+**The floor lies on level 4.** The party is on level 2 with
 3 torches lit. Reach the floor and the relic comes up with
 them; let the last torch go out and the dungeon keeps it.
 
@@ -144,7 +144,7 @@ High takes them deeper, low costs light.
 <sub>Empty. Nothing has been brought back yet.</sub>
 </details>
 
-<sub>No one has rolled yet. The expedition waits.</sub>
+<sub>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
 
 <br clear="both" />
 <!-- DICE:END -->
