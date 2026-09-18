@@ -29,27 +29,64 @@ jobs:
         run: node .github/scripts/roll.mjs
 
       - name: Commit the new state
+        id: commit
+        env:
+          TITLE: ${{ github.event.issue.title }}
+          ACTOR: ${{ github.event.issue.user.login }}
+          BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/last-roll.svg assets/descent.svg .github/chronicle.json
-          git reset -q .github/roll-reply.md 2>/dev/null || true
-          git diff --staged --quiet && exit 0
-          git commit -m "chronicle: the party moves"
-          git push
 
-      - name: Close the issue
+          # The remote can move between checkout and push: a person pushing, or
+          # a roll that landed first. A rebase here would quietly reapply this
+          # roll on top of a chronicle it was not computed from, overwriting
+          # whoever got there first. So the roll is thrown away and replayed
+          # against the state that actually won.
+          for attempt in 1 2 3; do
+            git add README.md assets/last-roll.svg assets/descent.svg .github/chronicle.json
+            git reset -q .github/roll-reply.md 2>/dev/null || true
+
+            if git diff --staged --quiet; then
+              echo "nothing changed, so nothing to push"
+              exit 0
+            fi
+
+            git commit -q -m "chronicle: the party moves"
+
+            if git push -q origin "HEAD:$BRANCH"; then
+              echo "landed on attempt $attempt"
+              exit 0
+            fi
+
+            echo "push rejected, the remote moved. Replaying the roll on top of it."
+            git reset --hard -q HEAD~1
+            git fetch -q origin "$BRANCH"
+            git reset --hard -q "origin/$BRANCH"
+            node .github/scripts/roll.mjs
+          done
+
+          echo "could not land the roll after 3 attempts" >&2
+          exit 1
+
+      # Always runs, even when the commit above failed. Whoever opened the
+      # issue gets an answer either way: silence was the old failure mode.
+      - name: Answer and close the issue
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NUMBER: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}
+          LANDED: ${{ steps.commit.outcome }}
         run: |
           # `gh issue close` has no --body-file; only `gh issue comment` does.
-          # Comment first, then close, so the reply survives either way.
-          if [ -f .github/roll-reply.md ]; then
+          if [ ! -f .github/roll-reply.md ]; then
+            gh issue comment "$NUMBER" --repo "$REPO" \
+              --body "That roll was not accepted. The issue title has to be exactly \`roll:d20\`."
+          elif [ "$LANDED" = "success" ]; then
             gh issue comment "$NUMBER" --repo "$REPO" --body-file .github/roll-reply.md
           else
             gh issue comment "$NUMBER" --repo "$REPO" \
-              --body "That roll was not accepted — the issue title has to be exactly \`roll:d20\`."
+              --body "The die was thrown, but the chronicle would not take it: the repository moved while this was running, three times over. Nothing was lost. Roll again."
           fi
           gh issue close "$NUMBER" --repo "$REPO"

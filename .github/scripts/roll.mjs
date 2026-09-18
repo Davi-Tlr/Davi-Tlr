@@ -9,15 +9,13 @@ import { randomInt } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { renderDie } from './die.mjs';
 import { renderScene } from './scene.mjs';
-import { advance, START, makeDungeon } from './chronicle.mjs';
+import { advance, START } from './chronicle.mjs';
 import { renderBlock, spliceBlock } from './block.mjs';
+import { escapeHtml } from './escape.mjs';
 
-const esc = s => String(s).replace(/[&<>"']/g, c =>
-  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
-
-const SIDES = [4, 6, 8, 10, 12, 20, 100];
+const ALLOWED_SIDES = [4, 6, 8, 10, 12, 20, 100];
 const STATE_PATH = '.github/chronicle.json';
-const JOURNAL = 4;
+const JOURNAL_LENGTH = 4;   // entries kept under the dice table
 
 const title = process.env.TITLE ?? '';
 const actor = process.env.ACTOR ?? '';
@@ -29,8 +27,8 @@ if (!match) {
 }
 
 const sides = Number(match[1]);
-if (!SIDES.includes(sides)) {
-  console.log(`ignored: d${sides} is not one of ${SIDES.join(', ')}`);
+if (!ALLOWED_SIDES.includes(sides)) {
+  console.log(`ignored: d${sides} is not one of ${ALLOWED_SIDES.join(', ')}`);
   process.exit(0);
 }
 
@@ -42,19 +40,19 @@ if (!/^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/.test(actor)) {
 const roll = randomInt(1, sides + 1);
 
 // ---------- state ----------
-let saved = { ...START, journal: [] };
+let savedState = { ...START, journal: [] };
 if (existsSync(STATE_PATH)) {
   try {
     const parsed = JSON.parse(readFileSync(STATE_PATH, 'utf8'));
-    if (parsed && typeof parsed === 'object') saved = { ...saved, ...parsed };
+    if (parsed && typeof parsed === 'object') savedState = { ...savedState, ...parsed };
   } catch {
     console.log('chronicle unreadable, starting a fresh expedition');
   }
 }
 
-const prevDungeon = saved.dungeon ?? START.dungeon;
-const { state, entry, outcome } = advance(saved, { roll, sides, actor });
-const journal = [entry, ...(Array.isArray(saved.journal) ? saved.journal : [])].slice(0, JOURNAL);
+const previousDungeon = savedState.dungeon ?? START.dungeon;
+const { state, entry, outcome } = advance(savedState, { roll, sides, actor });
+const journal = [entry, ...(Array.isArray(savedState.journal) ? savedState.journal : [])].slice(0, JOURNAL_LENGTH);
 
 mkdirSync('.github', { recursive: true });
 writeFileSync(STATE_PATH, JSON.stringify({ ...state, journal }, null, 2) + '\n');
@@ -64,29 +62,39 @@ mkdirSync('assets', { recursive: true });
 writeFileSync('assets/last-roll.svg', renderDie({ value: roll, sides, actor }));
 writeFileSync('assets/descent.svg', renderScene({ ...state, entry, outcome }));
 
-
 // ---------- the reply to whoever rolled ----------
-const headline = outcome === 'win'
-  ? `You rolled **${roll}** — and that was the one.`
-  : outcome === 'loss'
-  ? `You rolled **${roll}**, and the light ran out.`
-  : outcome === 'crit'
-  ? `You rolled a **natural ${sides}**.`
-  : outcome === 'fumble'
-  ? `You rolled a **1**.`
-  : `You rolled **${roll}**.`;
+function headlineFor(outcome) {
+  switch (outcome) {
+    case 'win':    return `You rolled **${roll}**, and that was the one.`;
+    case 'loss':   return `You rolled **${roll}**, and the light ran out.`;
+    case 'crit':   return `You rolled a **natural 20**.`;
+    case 'fumble': return `You rolled a **1**.`;
+    default:       return `You rolled **${roll}**.`;
+  }
+}
 
-const wherenow = outcome === 'win'
-  ? `It is in the vault now, with your name on it. A new dungeon has opened: **${esc(state.dungeon.name)}**, and its floor lies on level ${state.dungeon.floor}.`
-  : outcome === 'loss'
-  ? `The party climbed back out empty-handed. **${esc(prevDungeon.name)}** keeps its floor, and has now turned back ${state.dungeon.attempts} expedition${state.dungeon.attempts === 1 ? '' : 's'}. They will go again.`
-  : `They are on level ${state.depth} of ${state.dungeon.floor}, with ${state.torches} torch${state.torches === 1 ? '' : 'es'} lit.`;
+function whereTheyAreNow(outcome) {
+  if (outcome === 'win') {
+    return `It is in the vault now, with your name on it. A new dungeon has opened: ` +
+           `**${escapeHtml(state.dungeon.name)}**, and its floor lies on level ${state.dungeon.floor}.`;
+  }
+  if (outcome === 'loss') {
+    const attempts = state.dungeon.attempts;
+    return `The party climbed back out empty-handed. **${escapeHtml(previousDungeon.name)}** keeps its ` +
+           `floor, and has now turned back ${attempts} expedition${attempts === 1 ? '' : 's'}. They will go again.`;
+  }
+  return `They are on level ${state.depth} of ${state.dungeon.floor}, ` +
+         `with ${state.torches} torch${state.torches === 1 ? '' : 'es'} lit.`;
+}
+
+const headline = headlineFor(outcome);
+const position = whereTheyAreNow(outcome);
 
 writeFileSync('.github/roll-reply.md', `### ${headline}
 
-The party ${esc(entry.text)}.
+The party ${escapeHtml(entry.text)}.
 
-${wherenow}
+${position}
 
 Running total: **${state.wins}** recovered, **${state.losses}** lost.${state.best !== null ? ` Fastest descent so far: **${state.best}** rolls.` : ''}
 
@@ -96,4 +104,4 @@ Running total: **${state.wins}** recovered, **${state.losses}** lost.${state.bes
 // ---------- README ----------
 
 writeFileSync('README.md', spliceBlock(readFileSync('README.md', 'utf8'), renderBlock(state, journal)));
-console.log(`@${actor} rolled ${roll} on a d${sides} — ${outcome} — ${state.dungeon.name} level ${state.depth}/${state.dungeon.floor}, ${state.torches} torches, ${state.wins}W/${state.losses}L`);
+console.log(`@${actor} rolled ${roll} on a d${sides}, ${outcome}, ${state.dungeon.name} level ${state.depth}/${state.dungeon.floor}, ${state.torches} torches, ${state.wins}W/${state.losses}L`);

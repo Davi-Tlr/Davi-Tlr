@@ -3,8 +3,7 @@
 // Torchlight is amber on purpose: the rest of the profile is blue, and the
 // dungeon should not look like the flight planner.
 
-const esc = s => String(s).replace(/[&<>"']/g, c =>
-  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
+import { escapeHtml } from './escape.mjs';
 
 const W = 380, H = 400;
 const ROWS = 8;
@@ -102,16 +101,16 @@ export function renderScene(state) {
   if (name !== dungeon.name) name = name.replace(/[ ,.]+$/, '') + '…';
   const lines = wrap(entry?.text ?? 'the expedition waits for its first roll', 42, 3);
   const journal = lines.map((l, i) =>
-    `<text x="${W / 2}" y="${AFTER + 42 + i * 13.5}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8b949e">${esc(l)}</text>`
+    `<text x="${W / 2}" y="${AFTER + 42 + i * 13.5}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8b949e">${escapeHtml(l)}</text>`
   ).join('\n  ');
 
   const who = entry?.actor
-    ? `<text x="${W / 2}" y="${AFTER + 26}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="${lit}">@${esc(entry.actor)} rolled ${entry.roll}</text>`
+    ? `<text x="${W / 2}" y="${AFTER + 26}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="${lit}">@${escapeHtml(entry.actor)} rolled ${entry.roll}</text>`
     : '';
 
   const score = `${wins}W · ${losses}L${best !== null ? ` · best ${best}` : ''}`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(dungeon.name)}: party on level ${depth} of ${floor}, ${torches} torches lit, ${wins} won and ${losses} lost">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${escapeHtml(dungeon.name)}: party on level ${depth} of ${floor}, ${torches} torches lit, ${wins} won and ${losses} lost">
   <defs>
     <linearGradient id="deep" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#11161d"/><stop offset="100%" stop-color="#07090d"/>
@@ -124,7 +123,7 @@ export function renderScene(state) {
 
   <rect width="${W}" height="${H}" rx="10" fill="url(#deep)" stroke="#262d38" stroke-width="1.5"/>
 
-  <text x="20" y="28" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="600" fill="#e6edf3">${esc(name)}</text>
+  <text x="20" y="28" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="600" fill="#e6edf3">${escapeHtml(name)}</text>
   <text x="20" y="42" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#6e7681">the floor lies on level ${floor}${dungeon.attempts ? ` · ${dungeon.attempts} failed attempt${dungeon.attempts === 1 ? '' : 's'}` : ''}</text>
 ${bar}
 ${rows}

@@ -5,6 +5,7 @@
 import { randomInt } from 'node:crypto';
 
 export const MAX_TORCHES = 3;
+const VAULT_SIZE = 6;   // relics kept in the <details> list
 
 // ---------------------------------------------------------------- generation
 
@@ -104,43 +105,69 @@ const TABLE = [
   ]},
 ];
 
-const band = roll => TABLE.find(b => roll >= b.min && roll <= b.max);
-const pick = list => list[randomInt(0, list.length)];
+const bandFor = roll => TABLE.find(band => roll >= band.min && roll <= band.max);
+const pickLine = list => list[randomInt(0, list.length)];
 
 /**
  * Apply one roll. Returns the next state, the journal entry, and the outcome:
  * 'win' when the party reaches the dungeon's floor, 'loss' when the light runs
  * out, otherwise 'crit' / 'fumble' / 'normal' (or 'flavour' for a non-d20).
  */
+/**
+ * A chronicle read back from disk can be anything: a partial write, a bad
+ * merge, someone editing the JSON by hand. A number that is not a number goes
+ * to NaN on the first sum and stays there, because the state is written back
+ * out after every roll. Anything that fails to be a number starts over.
+ */
+function withSaneNumbers(state) {
+  const number = (value, fallback) => (Number.isFinite(value) ? value : fallback);
+  return {
+    ...state,
+    depth: number(state.depth, 0),
+    torches: number(state.torches, MAX_TORCHES),
+    rolls: number(state.rolls, 0),
+    wins: number(state.wins, 0),
+    losses: number(state.losses, 0),
+    best: Number.isFinite(state.best) ? state.best : null,
+    vault: Array.isArray(state.vault) ? state.vault : [],
+  };
+}
+
 export function advance(prev, { roll, sides, actor }) {
-  const s = { ...START, ...prev };
-  const dungeon = { ...(s.dungeon ?? makeDungeon(1)) };
+  const current = withSaneNumbers({ ...START, ...prev });
+  const savedDungeon = current.dungeon;
+  const dungeon = Number.isFinite(savedDungeon?.floor)
+    ? { ...savedDungeon, attempts: Number.isFinite(savedDungeon.attempts) ? savedDungeon.attempts : 0 }
+    : makeDungeon(1);
+
+  // The same four fields were being written out at each of the four exits.
+  const journalEntry = text => ({ actor, roll, sides, text, at: new Date().toISOString() });
 
   if (sides !== 20) {
     return {
-      state: s,
-      entry: { actor, roll, sides, text: 'rolled a d' + sides + ' in the dark for no reason anyone recorded', at: new Date().toISOString() },
+      state: current,
+      entry: journalEntry(`rolled a d${sides} in the dark for no reason anyone recorded`),
       outcome: 'flavour',
     };
   }
 
-  const b = band(roll);
-  let depth = Math.max(0, s.depth + b.depth);
-  let torches = Math.min(MAX_TORCHES, s.torches + b.torches);
-  let text = pick(b.lines);
+  const band = bandFor(roll);
+  let depth = Math.max(0, current.depth + band.depth);
+  let torches = Math.min(MAX_TORCHES, current.torches + band.torches);
+  let text = pickLine(band.lines);
   let outcome = roll === 20 ? 'crit' : roll === 1 ? 'fumble' : 'normal';
-  const rolls = s.rolls + 1;
+  const rolls = current.rolls + 1;
 
-  let { wins, losses, best } = s;
-  let vault = [...s.vault];
+  let { wins, losses, best } = current;
+  let vault = [...current.vault];
   let nextDungeon = dungeon;
 
   // At the entrance the party is resupplying: light is free and a bad roll
   // just means they have not set off yet.
-  if (s.depth === 0) {
+  if (current.depth === 0) {
     torches = MAX_TORCHES;
-    depth = Math.max(0, b.depth);
-    if (b.depth <= 0) {
+    depth = Math.max(0, band.depth);
+    if (band.depth <= 0) {
       text = 'checked the packs at the entrance and decided the hour was wrong';
       outcome = 'normal';
     }
@@ -152,11 +179,11 @@ export function advance(prev, { roll, sides, actor }) {
     text = `reached the floor of ${dungeon.name} and came back up with ${dungeon.relic}`;
     wins += 1;
     best = best === null ? rolls : Math.min(best, rolls);
-    vault = [{ relic: dungeon.relic, dungeon: dungeon.name, actor, rolls }, ...vault].slice(0, 6);
+    vault = [{ relic: dungeon.relic, dungeon: dungeon.name, actor, rolls }, ...vault].slice(0, VAULT_SIZE);
     nextDungeon = makeDungeon(dungeon.id + 1);
     return {
-      state: { ...s, dungeon: nextDungeon, depth: 0, torches: MAX_TORCHES, rolls: 0, wins, losses, best, vault },
-      entry: { actor, roll, sides, text, at: new Date().toISOString() },
+      state: { ...current, dungeon: nextDungeon, depth: 0, torches: MAX_TORCHES, rolls: 0, wins, losses, best, vault },
+      entry: journalEntry(text),
       outcome,
     };
   }
@@ -168,15 +195,15 @@ export function advance(prev, { roll, sides, actor }) {
     losses += 1;
     nextDungeon = { ...dungeon, attempts: dungeon.attempts + 1 };
     return {
-      state: { ...s, dungeon: nextDungeon, depth: 0, torches: MAX_TORCHES, rolls: 0, wins, losses, best, vault },
-      entry: { actor, roll, sides, text, at: new Date().toISOString() },
+      state: { ...current, dungeon: nextDungeon, depth: 0, torches: MAX_TORCHES, rolls: 0, wins, losses, best, vault },
+      entry: journalEntry(text),
       outcome,
     };
   }
 
   return {
-    state: { ...s, dungeon, depth, torches, rolls, wins, losses, best, vault },
-    entry: { actor, roll, sides, text, at: new Date().toISOString() },
+    state: { ...current, dungeon, depth, torches, rolls, wins, losses, best, vault },
+    entry: journalEntry(text),
     outcome,
   };
 }

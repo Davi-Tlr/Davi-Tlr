@@ -1,33 +1,31 @@
 // Draws the d20 as a faceted icosahedron seen face-on, and animates the roll:
 // the die spins up, numbers shuffle past, then it settles on the result.
-// Pure SMIL — GitHub strips <script> and <style>, so every motion is an
+// Pure SMIL, GitHub strips <script> and <style>, so every motion is an
 // <animate>/<set> element that survives sanitising.
 
 import { randomInt } from 'node:crypto';
-
-const esc = s => String(s).replace(/[&<>"']/g, c =>
-  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
+import { escapeHtml } from './escape.mjs';
 
 // hexagonal silhouette, flat top and bottom
 const V = [[55,0],[27.5,47.6],[-27.5,47.6],[-55,0],[-27.5,-47.6],[27.5,-47.6]];
 // the face turned toward the viewer
 const A = [0,-31], B = [27.5,17], C = [-27.5,17];
-const p = (...pts) => pts.map(([x,y]) => `${x},${y}`).join(' ');
+const asPoints = (...corners) => corners.map(([x, y]) => `${x},${y}`).join(' ');
 
-// Nine faces fan out from the centre triangle to the silhouette — one per
+// Nine faces fan out from the centre triangle to the silhouette, one per
 // hexagon edge plus one per centre-triangle vertex. Miss any and the die
 // shows a gap straight through to the background. Fills are shaded as if lit
 // from the upper left, which is what reads as a solid object.
 const FACES = [
-  { pts: p(A, V[4], V[5]), fill: '#2b3a50' },
-  { pts: p(A, V[5], V[0]), fill: '#253248' },
-  { pts: p(A, V[0], B),    fill: '#202c40' },
-  { pts: p(B, V[0], V[1]), fill: '#1a2434' },
-  { pts: p(B, V[1], V[2]), fill: '#151d2b' },
-  { pts: p(B, V[2], C),    fill: '#172030' },
-  { pts: p(C, V[2], V[3]), fill: '#1c2636' },
-  { pts: p(C, V[3], V[4]), fill: '#222f43' },
-  { pts: p(C, V[4], A),    fill: '#27354c' },
+  { pts: asPoints(A, V[4], V[5]), fill: '#2b3a50' },
+  { pts: asPoints(A, V[5], V[0]), fill: '#253248' },
+  { pts: asPoints(A, V[0], B),    fill: '#202c40' },
+  { pts: asPoints(B, V[0], V[1]), fill: '#1a2434' },
+  { pts: asPoints(B, V[1], V[2]), fill: '#151d2b' },
+  { pts: asPoints(B, V[2], C),    fill: '#172030' },
+  { pts: asPoints(C, V[2], V[3]), fill: '#1c2636' },
+  { pts: asPoints(C, V[3], V[4]), fill: '#222f43' },
+  { pts: asPoints(C, V[4], A),    fill: '#27354c' },
 ];
 
 const SPIN = 0.85;   // seconds of shuffling
@@ -46,9 +44,9 @@ export function renderDie({ value, sides, actor, idle = false }) {
   const shuffle = [];
   if (!idle) {
     for (let i = 0; i < TICKS; i++) {
-      const n = String(randomInt(1, sides + 1));
-      const t = (i * SPIN / TICKS).toFixed(3);
-      shuffle.push(`<text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="${fsize(n)}" font-weight="600" fill="#8b949e" opacity="0">${n}<set attributeName="opacity" to="1" begin="${t}s" dur="${(SPIN / TICKS).toFixed(3)}s"/></text>`);
+      const face = String(randomInt(1, sides + 1));
+      const showsAt = (i * SPIN / TICKS).toFixed(3);
+      shuffle.push(`<text y="13" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="${fsize(face)}" font-weight="600" fill="#8b949e" opacity="0">${face}<set attributeName="opacity" to="1" begin="${showsAt}s" dur="${(SPIN / TICKS).toFixed(3)}s"/></text>`);
     }
   }
 
@@ -74,9 +72,9 @@ export function renderDie({ value, sides, actor, idle = false }) {
     `<polygon points="${f.pts}" fill="${f.fill}" stroke="${edge}" stroke-width="0.7" stroke-opacity="0.3" stroke-linejoin="round"/>`
   ).join('\n      ');
 
-  const caption = idle ? 'no rolls yet' : `@${esc(actor)}`;
+  const caption = idle ? 'no rolls yet' : `@${escapeHtml(actor)}`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 165" width="240" height="165" role="img" aria-label="${idle ? 'A d20 waiting for its first roll' : `d${sides} rolled ${value} by ${esc(actor)}`}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 165" width="240" height="165" role="img" aria-label="${idle ? 'A d20 waiting for its first roll' : `d${sides} rolled ${value} by ${escapeHtml(actor)}`}">
   <defs>
     <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#161b22"/><stop offset="100%" stop-color="#0d1117"/>
@@ -96,7 +94,7 @@ export function renderDie({ value, sides, actor, idle = false }) {
       ${spin}
       ${settle}
       ${faces}
-      <polygon points="${p(A, B, C)}" fill="#1c2534" stroke="${edge}" stroke-width="1.4" stroke-opacity="0.9" stroke-linejoin="round"/>
+      <polygon points="${asPoints(A, B, C)}" fill="#1c2534" stroke="${edge}" stroke-width="1.4" stroke-opacity="0.9" stroke-linejoin="round"/>
     </g>
     <g>
       ${shuffle.join('\n      ')}
