@@ -113,7 +113,7 @@ goes deeper, or loses a torch.
 <tr>
 <td width="50%" valign="middle">
 
-<img src="./assets/descent.svg" width="100%" alt="The Forgotten Gaol of Ash: level 0 of 9" />
+<img src="./assets/descent.svg" width="100%" alt="The Forgotten Gaol of Ash: level 1 of 9" />
 
 </td>
 <td width="50%" valign="middle">
@@ -121,13 +121,13 @@ goes deeper, or loses a torch.
 ### The Forgotten Gaol of Ash
 
 Somewhere on level 9 lies **the name of something that would rather keep it**.
-They are at the entrance, packs checked, 3 torches lit.
+They are 8 levels short of it, with 3 torches still burning.
 
 A high roll takes them deeper. A low one costs light. When the last torch
 goes out they climb back up empty-handed, and the dungeon keeps what it has.
 
 <p align="center">
-  <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press%20Create.%20The%20workflow%20rolls%20it%20and%20closes%20this%20issue.%0A"><img src="./assets/last-roll.svg" width="240" alt="Roll the d20. It last showed 17, for @Davi-Tlr" /></a>
+  <a href="https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press%20Create.%20The%20workflow%20rolls%20it%20and%20closes%20this%20issue.%0A"><img src="./assets/last-roll.svg" width="240" alt="Roll the d20. It last showed 12, for @phalvesm" /></a>
 </p>
 
 **[Roll it](https://github.com/Davi-Tlr/Davi-Tlr/issues/new?title=roll:d20&body=Press%20Create.%20The%20workflow%20rolls%20it%20and%20closes%20this%20issue.%0A)** opens an issue with the title already filled in. Press Create and
@@ -148,7 +148,7 @@ that is the roll: a workflow throws the die, moves the party and answers you in 
 </tr>
 </table>
 
-<sub>`d20` **17** · [@Davi-Tlr](https://github.com/Davi-Tlr) reached the floor of The Forgotten Cistern of the Quiet King and came back up with a ledger of debts nobody remembers owing<br>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back<br>`d20` **15** · [@Davi-Tlr](https://github.com/Davi-Tlr) crossed the bridge over the underground river without waking anything</sub>
+<sub>`d20` **12** · [@phalvesm](https://github.com/phalvesm) went down through water that came to the knee, and lost a torch to it<br>`d20` **17** · [@Davi-Tlr](https://github.com/Davi-Tlr) reached the floor of The Forgotten Cistern of the Quiet King and came back up with a ledger of debts nobody remembers owing<br>`d20` **10** · [@Davi-Tlr](https://github.com/Davi-Tlr) went down through water that came to the knee, and lost a torch to it<br>`d20` **4** · [@Davi-Tlr](https://github.com/Davi-Tlr) retreated up a level with something following, and did not look back</sub>
 
 <!-- DICE:END -->
 
